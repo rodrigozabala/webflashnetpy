@@ -35,6 +35,7 @@
             font-family: var(--font-main);
             overflow-x: hidden;
             line-height: 1.5;
+            scroll-behavior: smooth;
         }
 
         /* Tectonic Background Elements */
@@ -1257,10 +1258,10 @@
         <div class="mobile-menu-overlay" id="mobile-overlay"></div>
         
         <div class="nav-links" id="nav-menu">
-            <a href="#">Servicios</a>
-            <a href="#">Planes</a>
-            <a href="#">Cobertura</a>
-            <a href="#">Soporte</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#planes">Planes</a>
+            <a href="#cobertura">Cobertura</a>
+            <a href="#cobertura">Soporte</a>
         </div>
         <a href="https://wa.me/595973553233" target="_blank" class="btn-whatsapp">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1537,7 +1538,7 @@
             </script>
 
             <div class="hero-cta">
-                <a href="#" class="btn-primary">Ver Planes</a>
+                <a href="#planes" class="btn-primary">Ver Planes</a>
                 <div style="font-family: var(--font-mono); font-size: 0.8rem; border-left: 1px solid var(--flash-green); padding-left: 1.5rem;">
                     <div style="color: var(--flash-green)">VELOCIDAD 1000 MBPS</div>
                     <div style="color: #444">LATENCIA < 2MS</div>
@@ -1583,7 +1584,7 @@
     </section>
 
     <!-- UNIFIED CUSTOMER SUPPORT SECTION -->
-    <section class="support-hero-unified" id="soporte">
+    <section class="support-hero-unified">
         <style>
             .support-hero-unified {
                 position: relative;
@@ -1959,7 +1960,7 @@
     <!-- REMOVED OLD SUPPORT SECTION BLOCKS -->
 
     <!-- NEW SERVICES SECTION -->
-    <section class="services-highlight" style="background-color: var(--flash-green); color: var(--obsidian); padding: 8rem 10%; position: relative; margin-top: 5rem; margin-bottom: 5rem;">
+    <section id="servicios" class="services-highlight" style="background-color: var(--flash-green); color: var(--obsidian); padding: 8rem 10%; position: relative; margin-top: 5rem; margin-bottom: 5rem;">
         <!-- Tectonic Top Edge -->
         <div style="position: absolute; top: -49px; left: 0; width: 100%; height: 50px; background: var(--flash-green); clip-path: polygon(0 100%, 100% 0, 100% 100%); z-index: 1;"></div>
         
@@ -1980,7 +1981,7 @@
                         <li style="margin-bottom: 0.5rem;">+ ESTABILIDAD EN VIDEOLLAMADAS</li>
                         <li style="margin-bottom: 0.5rem;">+ DESCARGAS SIMÉTRICAS</li>
                    </ul>
-                   <a href="#" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 5px 5px 0px #fff;">Ver Planes</a>
+                   <a href="#planes" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 5px 5px 0px #fff;">Ver Planes</a>
                </div>
                <div class="service-visual" style="flex: 1; position: relative; min-height: 400px;">
                     <img src="img/gamer.png" alt="Gamer Setup Flashnet" style="width: 85%; border: 4px solid #000; transform: rotate(-3deg); box-shadow: 15px 15px 0px rgba(0,0,0,1); position: relative; z-index: 2;">
@@ -2013,13 +2014,61 @@
                </div>
             </div>
 
+            <!-- Service 3: Control Parental -->
+            <div class="service-row reveal" style="display: flex; align-items: center; gap: 5rem; margin-top: 5rem;">
+               <div class="service-text" style="flex: 1;">
+                   <div style="font-family: var(--font-mono); font-weight: 800; margin-bottom: 1rem; color: #000; letter-spacing: 2px;">[ PROTECCIÓN_FAMILIAR ]</div>
+                   <h2 style="font-size: 3.5rem; font-weight: 900; text-transform: uppercase; line-height: 0.9; margin-bottom: 2rem; font-style: italic; color: #000;">
+                       CONTROL <br> <span style="color: #fff; -webkit-text-stroke: 1px #000; text-shadow: 4px 4px 0px #000;">PARENTAL</span>
+                   </h2>
+                   <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 2rem; max-width: 480px; color: #111; line-height: 1.4;">
+                       Protegé a tus hijos en lo que ven, lo que hacen con sus dispositivos y dónde se encuentran. Controlá el entorno digital de tu familia con herramientas avanzadas de seguridad.
+                   </p>
+                   <ul style="list-style: none; margin-bottom: 3rem; font-family: var(--font-mono); font-weight: 700;">
+                        <li style="margin-bottom: 0.5rem;">+ FILTRADO DE CONTENIDO</li>
+                        <li style="margin-bottom: 0.5rem;">+ LÍMITES DE TIEMPO</li>
+                        <li style="margin-bottom: 0.5rem;">+ MONITOREO DE ACTIVIDAD</li>
+                        <li style="margin-bottom: 0.5rem;">+ BLOQUEO DE APPS</li>
+                   </ul>
+                   
+                   <div style="font-family: var(--font-mono); font-weight: 800; margin-bottom: 1.5rem; font-size: 0.8rem; color: #000;">DESCARGAR HERRAMIENTAS:</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem; align-items: flex-end;">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
+                            <img src="img/icons/android.ico" alt="Android" style="width: 35px; height: 35px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));">
+                            <a href="https://families.google/intl/es-419_ALL/familylink/" target="_blank" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 4px 4px 0px #fff; padding: 0.8rem 1.5rem; font-size: 0.75rem;">ANDROID</a>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
+                            <img src="img/icons/apple.ico" alt="Apple" style="width: 35px; height: 35px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));">
+                            <a href="https://support.apple.com/es-lamr/HT201304" target="_blank" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 4px 4px 0px #fff; padding: 0.8rem 1.5rem; font-size: 0.75rem;">iOS (APPLE)</a>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
+                            <img src="img/icons/windows.ico" alt="Windows" style="width: 35px; height: 35px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));">
+                            <a href="https://support.microsoft.com/es-es/account-billing/introducci%C3%B3n-a-microsoft-family-safety-b6280c9d-38d7-82ff-0e4f-a6cb7e659344" target="_blank" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 4px 4px 0px #fff; padding: 0.8rem 1.5rem; font-size: 0.75rem;">WINDOWS</a>
+                        </div>
+                   </div>
+                   
+                   <div style="margin-top: 2.5rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; border-top: 2px solid rgba(0,0,0,0.1); padding-top: 1.5rem;">
+                       <p style="font-size: 0.9rem; font-weight: 700; color: #000; margin: 0; flex: 1; min-width: 280px; line-height: 1.3;">
+                           Artículo oficial del MITIC-PY sobre "Control Parental" <br>
+                           <span style="font-size: 0.75rem; opacity: 0.7;">(Ministerio de Tecnologías de la Información y Comunicación del Paraguay)</span>
+                       </p>
+                       <a href="https://www.conectateseguro.gov.py/controles-parentales/" target="_blank" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 3px 3px 0px #fff; padding: 0.6rem 1.2rem; font-size: 0.7rem; text-decoration: none; white-space: nowrap;">LEER AQUÍ</a>
+                   </div>
+               </div>
+               <div class="service-visual" style="flex: 1; position: relative;">
+                    <!-- Note: I should generate or use a relevant image here. Using a placeholder or the football layout logic for now -->
+                    <img src="img/familia.png" alt="Seguridad Digital" style="width: 100%; border: 4px solid #000; transform: rotate(-1deg); box-shadow: 15px 15px 0px rgba(0,0,0,1);">
+                    <div style="position: absolute; width: 120px; height: 120px; background: #fff; left: -30px; bottom: -30px; z-index: -1; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); opacity: 0.3;"></div>
+               </div>
+            </div>
+
         </div>
 
         <!-- Tectonic Bottom Edge -->
         <div style="position: absolute; bottom: -49px; left: 0; width: 100%; height: 50px; background: var(--flash-green); clip-path: polygon(0 0, 100% 0, 0% 100%); z-index: 1;"></div>
     </section>
 
-    <section class="plans">
+    <section id="planes" class="plans">
         <span class="section-tag hacker-text" data-text="LOS_MEJORES_PRECIOS">LOS_MEJORES_PRECIOS</span>
         <h2 style="font-size: 3rem; text-transform: uppercase; font-style: italic;">Nuestros Planes</h2>
         
@@ -2269,7 +2318,7 @@
 
 
     <!-- CONTACT MAP SECTION -->
-    <section class="contact-map" style="padding: 3rem 5%; position: relative; background: var(--obsidian);">
+    <section id="cobertura" class="contact-map" style="padding: 3rem 5%; position: relative; background: var(--obsidian);">
         <div style="max-width: 900px; margin: 0 auto;">
             <div class="map-wrapper" style="position: relative; height: 450px; border-radius: 30px; overflow: hidden; border: 1px solid #1a1a1a; box-shadow: 0 10px 40px rgba(0,0,0,0.7);">
                 <div id="map" style="width: 100%; height: 100%; z-index: 1;"></div>
@@ -2328,13 +2377,7 @@
     <footer>
         <div>
             <div class="logo-container" style="margin-bottom: 2rem;">
-                <svg class="logo-bolt" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Green Arrow (Top-Left/Up-Right) -->
-                    <path d="M45 5 L85 5 L40 50 L65 50 L25 95 L45 50 L20 50 Z" fill="var(--flash-green)"/>
-                    <!-- White Arrow (Bottom-Right/Down-Left) -->
-                    <path d="M55 95 L15 95 L60 50 L35 50 L75 5 L55 50 L80 50 Z" fill="#fff"/>
-                </svg>
-                <div class="logo-text">Flash<span>Net</span></div>
+                <img src="img/logo-flashnet.png" alt="FlashNet" style="height: 75px; width: auto; object-fit: contain;">
             </div>
             <div style="color: #888; font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.6;">
                 <p><strong>Dirección:</strong> Cap. Ruperto Zenteno c/ Tte Adolfo Mello<br>y Mcal. López, San Estanislao, Paraguay</p>
