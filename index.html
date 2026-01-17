@@ -266,6 +266,9 @@
             display: block;
             -webkit-text-stroke: 1px var(--flash-green);
             color: transparent;
+            font-family: var(--font-mono);
+            font-weight: 800;
+            letter-spacing: 1px;
         }
 
         .hero-cta {
@@ -1451,10 +1454,10 @@
             
             if (!container) return;
 
-            // Reduced spawn rate for premium, less cluttered effect
+            // Spawn rate for synaptic network effect
             setInterval(() => {
                 spawnPulse(container, GRID_SIZE);
-            }, 1200); // Increased from 300ms to 1200ms
+            }, 1200); // Optimal spawn frequency for realistic synaptic network
         }
 
         function spawnPulse(container, gridSize) {
@@ -1465,7 +1468,7 @@
             
             const isHorizontal = Math.random() > 0.5;
             const distance = Math.random() * 800 + 600; 
-            const duration = Math.random() * 4000 + 3000; 
+            const duration = Math.random() * 1800 + 1800; // Optimal speed for smooth, visible pulse movement 
             
             // Random start position snapped to grid
             const maxX = window.innerWidth;
@@ -1475,15 +1478,15 @@
             const startY = Math.floor(Math.random() * (maxY / gridSize)) * gridSize;
 
             // Enhanced synaptic glow effect
-            const glowIntensity = Math.random() * 0.4 + 0.6; // 0.6 to 1.0 (brighter)
+            const glowIntensity = Math.random() * 0.4 + 0.8; // 0.6 to 1.0 (brighter)
             const glowColor = `rgba(0, 224, 31, ${glowIntensity})`;
 
-            // Length adjustment: increased slightly from 180px to 280px
-            const rayLength = 280;
+            // Length adjustment: increased slightly from 180px to 300px
+            const rayLength = 300;
 
             // Apply styles based on orientation
             if (isHorizontal) {
-                pulse.style.height = '2px'; // Thinner for a sharper look
+                pulse.style.height = '1px'; // Thinner for a sharper look
                 pulse.style.width = rayLength + 'px';
                 pulse.style.top = startY + 'px';
                 pulse.style.left = startX + 'px';
@@ -1491,7 +1494,7 @@
                 // Advanced "Fiber-Optic" Gradient: Transparent tail -> Green -> Brilliant White Spark
                 pulse.style.background = `linear-gradient(90deg, 
                     transparent 0%, 
-                    rgba(0, 224, 31, 0.1) 40%,
+                    rgba(0, 224, 31, 0.1) 10%,
                     rgba(0, 224, 31, 0.8) 85%,
                     rgba(255, 255, 255, 1) 98%,
                     #00E01F 100%)`;
@@ -1517,14 +1520,14 @@
 
             } else {
                 // Vertical
-                pulse.style.width = '2px';
+                pulse.style.width = '1px';
                 pulse.style.height = rayLength + 'px';
                 pulse.style.top = startY + 'px';
                 pulse.style.left = startX + 'px';
                 
                 pulse.style.background = `linear-gradient(180deg, 
                     transparent 0%, 
-                    rgba(0, 224, 31, 0.1) 40%,
+                    rgba(0, 224, 31, 0.1) 10%,
                     rgba(0, 224, 31, 0.8) 85%,
                     rgba(255, 255, 255, 1) 98%,
                     #00E01F 100%)`;
