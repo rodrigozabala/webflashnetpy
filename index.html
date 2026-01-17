@@ -298,10 +298,8 @@
         .hero-visual {
             position: absolute;
             right: -5%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50%;
-            height: 80%;
+            width: 55%;
+            height: 100%;
             z-index: 1;
         }
 
@@ -888,7 +886,7 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                opacity: 0.45;
+                opacity: 0.75;
                 z-index: 1;
                 mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
                 -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
@@ -1377,7 +1375,7 @@
             <a href="#servicios">Servicios</a>
             <a href="#planes">Planes</a>
             <a href="#cobertura">Cobertura</a>
-            <a href="#cobertura">Soporte</a>
+            <a href="#ayuda">Soporte</a>
         </div>
         <a href="https://wa.me/595973553233" target="_blank" class="btn-whatsapp">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1466,8 +1464,8 @@
             pulse.classList.add('grid-pulse');
             
             const isHorizontal = Math.random() > 0.5;
-            const distance = Math.random() * 800 + 600; // 600-1400px travel (increased)
-            const duration = Math.random() * 4000 + 3000; // 3-7s duration (much longer)
+            const distance = Math.random() * 800 + 600; 
+            const duration = Math.random() * 4000 + 3000; 
             
             // Random start position snapped to grid
             const maxX = window.innerWidth;
@@ -1477,61 +1475,71 @@
             const startY = Math.floor(Math.random() * (maxY / gridSize)) * gridSize;
 
             // Enhanced synaptic glow effect
-            const glowIntensity = Math.random() * 0.5 + 0.5; // 0.5 to 1.0
+            const glowIntensity = Math.random() * 0.4 + 0.6; // 0.6 to 1.0 (brighter)
             const glowColor = `rgba(0, 224, 31, ${glowIntensity})`;
+
+            // Length adjustment: increased slightly from 180px to 280px
+            const rayLength = 280;
 
             // Apply styles based on orientation
             if (isHorizontal) {
-                pulse.style.height = '3px'; // Slightly thicker for visibility
-                pulse.style.width = '180px'; // Much longer tail (3x original)
+                pulse.style.height = '2px'; // Thinner for a sharper look
+                pulse.style.width = rayLength + 'px';
                 pulse.style.top = startY + 'px';
                 pulse.style.left = startX + 'px';
                 
-                // Enhanced gradient with multiple color stops for synaptic effect
+                // Advanced "Fiber-Optic" Gradient: Transparent tail -> Green -> Brilliant White Spark
                 pulse.style.background = `linear-gradient(90deg, 
                     transparent 0%, 
-                    rgba(0, 224, 31, 0.1) 20%,
-                    rgba(0, 224, 31, 0.6) 70%,
-                    ${glowColor} 100%)`;
-                pulse.style.boxShadow = `0 0 20px ${glowColor}, 0 0 40px rgba(0, 224, 31, 0.3)`;
-                pulse.style.filter = 'blur(0.5px)'; // Subtle blur for glow effect
+                    rgba(0, 224, 31, 0.1) 40%,
+                    rgba(0, 224, 31, 0.8) 85%,
+                    rgba(255, 255, 255, 1) 98%,
+                    #00E01F 100%)`;
+                pulse.style.boxShadow = `
+                    0 0 15px ${glowColor}, 
+                    0 0 30px rgba(0, 224, 31, 0.4),
+                    -5px 0 20px rgba(0, 224, 31, 0.2)`;
+                pulse.style.mixBlendMode = 'screen';
                 
-                // Synaptic pulsing animation with easing
                 const keyframes = [
                     { transform: 'translateX(0) scaleX(0.8)', opacity: 0 },
-                    { offset: 0.05, transform: 'translateX(0) scaleX(1)', opacity: 0.6 },
-                    { offset: 0.15, opacity: 1, filter: 'blur(0.5px) brightness(1.5)' },
-                    { offset: 0.75, opacity: 1, filter: 'blur(0.5px) brightness(1)' },
-                    { offset: 0.9, opacity: 0.6 },
+                    { offset: 0.1, transform: 'translateX(0) scaleX(1)', opacity: 0.8 },
+                    { offset: 0.2, opacity: 1, filter: 'brightness(1.5)' },
+                    { offset: 0.8, opacity: 1, filter: 'brightness(1)' },
+                    { offset: 0.95, opacity: 0.5 },
                     { transform: `translateX(${distance}px) scaleX(0.8)`, opacity: 0 }
                 ];
                 
                 pulse.animate(keyframes, {
                     duration: duration,
-                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)' // Smooth easing
+                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
                 }).onfinish = () => pulse.remove();
 
             } else {
                 // Vertical
-                pulse.style.width = '3px';
-                pulse.style.height = '180px'; // Much longer tail (3x original)
+                pulse.style.width = '2px';
+                pulse.style.height = rayLength + 'px';
                 pulse.style.top = startY + 'px';
                 pulse.style.left = startX + 'px';
                 
                 pulse.style.background = `linear-gradient(180deg, 
                     transparent 0%, 
-                    rgba(0, 224, 31, 0.1) 20%,
-                    rgba(0, 224, 31, 0.6) 70%,
-                    ${glowColor} 100%)`;
-                pulse.style.boxShadow = `0 0 20px ${glowColor}, 0 0 40px rgba(0, 224, 31, 0.3)`;
-                pulse.style.filter = 'blur(0.5px)';
+                    rgba(0, 224, 31, 0.1) 40%,
+                    rgba(0, 224, 31, 0.8) 85%,
+                    rgba(255, 255, 255, 1) 98%,
+                    #00E01F 100%)`;
+                pulse.style.boxShadow = `
+                    0 0 15px ${glowColor}, 
+                    0 0 30px rgba(0, 224, 31, 0.4),
+                    0 -5px 20px rgba(0, 224, 31, 0.2)`;
+                pulse.style.mixBlendMode = 'screen';
                 
                 const keyframes = [
                     { transform: 'translateY(0) scaleY(0.8)', opacity: 0 },
-                    { offset: 0.05, transform: 'translateY(0) scaleY(1)', opacity: 0.6 },
-                    { offset: 0.15, opacity: 1, filter: 'blur(0.5px) brightness(1.5)' },
-                    { offset: 0.75, opacity: 1, filter: 'blur(0.5px) brightness(1)' },
-                    { offset: 0.9, opacity: 0.6 },
+                    { offset: 0.1, transform: 'translateY(0) scaleY(1)', opacity: 0.8 },
+                    { offset: 0.2, opacity: 1, filter: 'brightness(1.5)' },
+                    { offset: 0.8, opacity: 1, filter: 'brightness(1)' },
+                    { offset: 0.95, opacity: 0.5 },
                     { transform: `translateY(${distance}px) scaleY(0.8)`, opacity: 0 }
                 ];
 
@@ -1543,6 +1551,7 @@
 
             container.appendChild(pulse);
         }
+
                             const text = "[ INICIANDO_PARTIDA ]";
                             const element = document.getElementById('hero-typewriter');
                             const waitTime = 12000; 
@@ -2022,7 +2031,7 @@
         <div class="support-unified-container">
             <div class="support-unified-header">
                 <div class="support-msg reveal">
-                    <span style="font-family: var(--font-mono); color: #ff3333; letter-spacing: 5px; font-weight: 800; display: block; margin-bottom: 1.5rem;">[ PROBLEMA_CONEXIÓN ]</span>
+                    <span style="font-family: var(--font-mono); color: #ff3333; letter-spacing: 5px; font-weight: 750; display: block; margin-bottom: 1.5rem;">[ PROBLEMA_CONEXIÓN ]</span>
                     <h2 class="text-white">¿INTERNET <br><span class="text-red">CAÍDO?</span></h2>
                     <p class="text-dim">Sabemos lo frustrante que es. Cortes inesperados y soporte que no responde son cosa del pasado.</p>
                 </div>
@@ -2136,53 +2145,7 @@
                </div>
             </div>
 
-            <!-- Service 3: Control Parental -->
-            <div class="service-row reveal" style="display: flex; align-items: center; gap: 5rem; margin-top: 5rem;">
-               <div class="service-text" style="flex: 1;">
-                   <div style="font-family: var(--font-mono); font-weight: 800; margin-bottom: 1rem; color: #000; letter-spacing: 2px;">[ PROTECCIÓN_FAMILIAR ]</div>
-                   <h2 style="font-size: 3.5rem; font-weight: 900; text-transform: uppercase; line-height: 0.9; margin-bottom: 2rem; font-style: italic; color: #000;">
-                       CONTROL <br> <span style="color: #fff; -webkit-text-stroke: 1px #000; text-shadow: 4px 4px 0px #000;">PARENTAL</span>
-                   </h2>
-                   <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 2rem; max-width: 480px; color: #111; line-height: 1.4;">
-                       Protegé a tus hijos en lo que ven, lo que hacen con sus dispositivos y dónde se encuentran. Controlá el entorno digital de tu familia con herramientas avanzadas de seguridad.
-                   </p>
-                   <ul style="list-style: none; margin-bottom: 3rem; font-family: var(--font-mono); font-weight: 700;">
-                        <li style="margin-bottom: 0.5rem;">+ FILTRADO DE CONTENIDO</li>
-                        <li style="margin-bottom: 0.5rem;">+ LÍMITES DE TIEMPO</li>
-                        <li style="margin-bottom: 0.5rem;">+ MONITOREO DE ACTIVIDAD</li>
-                        <li style="margin-bottom: 0.5rem;">+ BLOQUEO DE APPS</li>
-                   </ul>
-                   
-                   <div style="font-family: var(--font-mono); font-weight: 800; margin-bottom: 1.5rem; font-size: 0.8rem; color: #000;">DESCARGAR HERRAMIENTAS:</div>
-                    <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem; align-items: flex-end;">
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
-                            <img src="img/icons/android.ico" alt="Android" style="width: 35px; height: 35px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));">
-                            <a href="https://families.google/intl/es-419_ALL/familylink/" target="_blank" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 4px 4px 0px #fff; padding: 0.8rem 1.5rem; font-size: 0.75rem;">ANDROID</a>
-                        </div>
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
-                            <img src="img/icons/apple.ico" alt="Apple" style="width: 35px; height: 35px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));">
-                            <a href="https://support.apple.com/es-lamr/HT201304" target="_blank" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 4px 4px 0px #fff; padding: 0.8rem 1.5rem; font-size: 0.75rem;">iOS (APPLE)</a>
-                        </div>
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
-                            <img src="img/icons/windows.ico" alt="Windows" style="width: 35px; height: 35px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));">
-                            <a href="https://support.microsoft.com/es-es/account-billing/introducci%C3%B3n-a-microsoft-family-safety-b6280c9d-38d7-82ff-0e4f-a6cb7e659344" target="_blank" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 4px 4px 0px #fff; padding: 0.8rem 1.5rem; font-size: 0.75rem;">WINDOWS</a>
-                        </div>
-                   </div>
-                   
-                   <div style="margin-top: 2.5rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; border-top: 2px solid rgba(0,0,0,0.1); padding-top: 1.5rem;">
-                       <p style="font-size: 0.9rem; font-weight: 700; color: #000; margin: 0; flex: 1; min-width: 280px; line-height: 1.3;">
-                           Artículo oficial del MITIC-PY sobre "Control Parental" <br>
-                           <span style="font-size: 0.75rem; opacity: 0.7;">(Ministerio de Tecnologías de la Información y Comunicación del Paraguay)</span>
-                       </p>
-                       <a href="https://www.conectateseguro.gov.py/controles-parentales/" target="_blank" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 3px 3px 0px #fff; padding: 0.6rem 1.2rem; font-size: 0.7rem; text-decoration: none; white-space: nowrap;">LEER AQUÍ</a>
-                   </div>
-               </div>
-               <div class="service-visual" style="flex: 1; position: relative;">
-                    <!-- Note: I should generate or use a relevant image here. Using a placeholder or the football layout logic for now -->
-                    <img src="img/familia.png" alt="Seguridad Digital" style="width: 100%; border: 4px solid #000; transform: rotate(-1deg); box-shadow: 15px 15px 0px rgba(0,0,0,1);">
-                    <div style="position: absolute; width: 120px; height: 120px; background: #fff; left: -30px; bottom: -30px; z-index: -1; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); opacity: 0.3;"></div>
-               </div>
-            </div>
+
 
         </div>
 
@@ -2444,10 +2407,70 @@
             </p>
         </div>
     </section>
+    <!-- Ayuda y Soporte Section -->
+    <section id="ayuda" class="services-highlight" style="background-color: var(--flash-green); color: var(--obsidian); padding: 8rem 10%; position: relative; margin-top: 5rem; margin-bottom: 5rem;">
+        <!-- Tectonic Top Edge -->
+        <div style="position: absolute; top: -49px; left: 0; width: 100%; height: 50px; background: var(--flash-green); clip-path: polygon(0 100%, 100% 0, 100% 100%); z-index: 1;"></div>
+        
+        <div style="text-align: center; margin-bottom: 6rem; position: relative; z-index: 2;">
+            <div style="font-family: var(--font-mono); font-weight: 800; margin-bottom: 1.5rem; color: #000; letter-spacing: 5px;">[ MÁS_INFORMACIÓN ]</div>
+            <h2 style="font-size: 4rem; font-weight: 900; text-transform: uppercase; line-height: 0.9; font-style: italic; color: #000; margin: 0;">
+                AYUDA & <br> <span style="color: #fff; -webkit-text-stroke: 1px #000; text-shadow: 6px 6px 0px #000;">SOPORTE</span>
+            </h2>
+        </div>
 
+        <div class="service-container" style="display: flex; flex-direction: column; gap: 8rem;">
+            <!-- Service: Control Parental (Relocated) -->
+            <div class="service-row reveal" style="display: flex; align-items: center; gap: 5rem;">
+               <div class="service-text" style="flex: 1;">
+                   <div style="font-family: var(--font-mono); font-weight: 800; margin-bottom: 1rem; color: #000; letter-spacing: 2px;">[ PROTECCIÓN_FAMILIAR ]</div>
+                   <h2 style="font-size: 3.5rem; font-weight: 900; text-transform: uppercase; line-height: 0.9; margin-bottom: 2rem; font-style: italic; color: #000;">
+                       CONTROL <br> <span style="color: #fff; -webkit-text-stroke: 1px #000; text-shadow: 4px 4px 0px #000;">PARENTAL</span>
+                   </h2>
+                   <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 2rem; max-width: 480px; color: #111; line-height: 1.4;">
+                       Protegé a tus hijos en lo que ven, lo que hacen con sus dispositivos y dónde se encuentran. Controlá el entorno digital de tu familia con herramientas avanzadas de seguridad.
+                   </p>
+                   <ul style="list-style: none; margin-bottom: 3rem; font-family: var(--font-mono); font-weight: 700;">
+                        <li style="margin-bottom: 0.5rem;">+ FILTRADO DE CONTENIDO</li>
+                        <li style="margin-bottom: 0.5rem;">+ LÍMITES DE TIEMPO</li>
+                        <li style="margin-bottom: 0.5rem;">+ MONITOREO DE ACTIVIDAD</li>
+                        <li style="margin-bottom: 0.5rem;">+ BLOQUEO DE APPS</li>
+                   </ul>
+                   
+                   <div style="font-family: var(--font-mono); font-weight: 800; margin-bottom: 1.5rem; font-size: 0.8rem; color: #000;">DESCARGAR HERRAMIENTAS:</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem; align-items: flex-end;">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
+                            <img src="img/icons/android.ico" alt="Android" style="width: 35px; height: 35px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));">
+                            <a href="https://families.google/intl/es-419_ALL/familylink/" target="_blank" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 4px 4px 0px #fff; padding: 0.8rem 1.5rem; font-size: 0.75rem;">ANDROID</a>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
+                            <img src="img/icons/apple.ico" alt="Apple" style="width: 35px; height: 35px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));">
+                            <a href="https://support.apple.com/es-lamr/HT201304" target="_blank" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 4px 4px 0px #fff; padding: 0.8rem 1.5rem; font-size: 0.75rem;">iOS (APPLE)</a>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
+                            <img src="img/icons/windows.ico" alt="Windows" style="width: 35px; height: 35px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));">
+                            <a href="https://support.microsoft.com/es-es/account-billing/introducci%C3%B3n-a-microsoft-family-safety-b6280c9d-38d7-82ff-0e4f-a6cb7e659344" target="_blank" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 4px 4px 0px #fff; padding: 0.8rem 1.5rem; font-size: 0.75rem;">WINDOWS</a>
+                        </div>
+                   </div>
+                   
+                   <div style="margin-top: 2.5rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; border-top: 2px solid rgba(0,0,0,0.1); padding-top: 1.5rem;">
+                       <p style="font-size: 0.9rem; font-weight: 700; color: #000; margin: 0; flex: 1; min-width: 280px; line-height: 1.3;">
+                           Artículo oficial del MITIC-PY sobre "Control Parental" <br>
+                           <span style="font-size: 0.75rem; opacity: 0.7;">(Ministerio de Tecnologías de la Información y Comunicación del Paraguay)</span>
+                       </p>
+                       <a href="https://www.conectateseguro.gov.py/controles-parentales/" target="_blank" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 3px 3px 0px #fff; padding: 0.6rem 1.2rem; font-size: 0.7rem; text-decoration: none; white-space: nowrap;">LEER AQUÍ</a>
+                   </div>
+               </div>
+               <div class="service-visual" style="flex: 1; position: relative;">
+                    <img src="img/familia.png" alt="Seguridad Digital" style="width: 100%; border: 4px solid #000; transform: rotate(-1deg); box-shadow: 15px 15px 0px rgba(0,0,0,1);">
+                    <div style="position: absolute; width: 120px; height: 120px; background: #fff; left: -30px; bottom: -30px; z-index: -1; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); opacity: 0.3;"></div>
+               </div>
+            </div>
+        </div>
 
-
-
+        <!-- Tectonic Bottom Edge -->
+        <div style="position: absolute; bottom: -49px; left: 0; width: 100%; height: 50px; background: var(--flash-green); clip-path: polygon(0 0, 100% 0, 0% 100%); z-index: 1;"></div>
+    </section>
 
     <!-- CONTACT MAP SECTION -->
     <section id="cobertura" class="contact-map" style="padding: 3rem 5%; position: relative; background: var(--obsidian);">
