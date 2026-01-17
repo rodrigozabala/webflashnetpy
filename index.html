@@ -378,21 +378,27 @@
             margin-top: 4rem;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: var(--glass);
+            gap: 1.5rem; /* Increased gap for cleaner separation */
+            background: transparent; /* Removed var(--glass) to fix white flash */
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .plan-item {
             background: var(--obsidian);
             padding: 4rem 2rem;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle default border */
         }
 
         .plan-item:hover {
             z-index: 2;
-            outline: 1px solid var(--flash-green);
+            border-color: var(--flash-green);
             background: #0d0d0d;
+            box-shadow: 0 0 30px rgba(0, 224, 31, 0.15);
+            transform: translateY(-5px);
         }
 
         .plan-item h4 {
@@ -426,6 +432,113 @@
             border-radius: 8px;
             padding: 0.4rem 0.8rem;
             margin: 0.8rem 0;
+        }
+
+        /* Advanced Electric Border Style */
+        .plan-item.recommended {
+            position: relative;
+            z-index: 1;
+            overflow: visible; /* To allow glow to peek out */
+            border: none;
+            background: #000;
+            --electric-border-color: var(--flash-green);
+            --electric-light-color: oklch(from var(--electric-border-color) l c h);
+            border-radius: 20px;
+            isolation: isolate;
+        }
+
+        .eb-canvas-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .eb-canvas {
+            display: block;
+        }
+
+        .eb-content {
+            position: relative;
+            border-radius: inherit;
+            z-index: 3;
+            height: 100%;
+        }
+
+        .eb-layers {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .eb-glow-1,
+        .eb-glow-2,
+        .eb-background-glow {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            box-sizing: border-box;
+        }
+
+        .eb-glow-1 {
+            border: 2px solid oklch(from var(--electric-border-color) l c h / 0.6);
+            filter: blur(1px);
+        }
+
+        .eb-glow-2 {
+            border: 2px solid var(--electric-light-color);
+            filter: blur(4px);
+        }
+
+        .eb-background-glow {
+            z-index: -1;
+            transform: scale(1.1);
+            filter: blur(32px);
+            opacity: 0.3;
+            background: linear-gradient(-30deg, var(--electric-light-color), transparent, var(--electric-border-color));
+        }
+
+        @keyframes rotate-electric {
+            100% {
+                transform: rotate(1turn);
+            }
+        }
+
+        /* Shiny Text Wave Effects (Hue Preserving) */
+        .shiny-green {
+            background: linear-gradient(
+                to right,
+                var(--flash-green) 20%,
+                #fff 50%,
+                var(--flash-green) 80%
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine-wave 4s linear infinite;
+        }
+
+        .shiny-silver {
+            background: linear-gradient(
+                to right,
+                #666 20%,
+                #ccc 50%,
+                #666 80%
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine-wave 4s linear infinite;
+        }
+
+        @keyframes shine-wave {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
         }
 
         /* Scroll Animation Classes */
@@ -491,9 +604,6 @@
             font-style: italic;
         }
 
-            .features, .plan-grid {
-                grid-template-columns: 1fr;
-            }
 
         /* Neon Snake Border Animation */
         .review-card {
@@ -693,20 +803,26 @@
         @media (max-width: 768px) {
             /* ========== NAVIGATION ========== */
             nav {
-                padding: 0 5%;
-                height: 60px;
+                padding: 0 10px 0 0;
+                height: 65px;
+                position: fixed;
             }
 
             .logo-container {
-                transform: none !important;
+                display: flex;
+                transform: translateY(4.6px); /* Optical alignment fix */
             }
 
             .logo-container img {
-                height: 45px !important;
+                height: 70px !important;
             }
 
             .hamburger-menu {
                 display: flex;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-55%, -50%);
             }
 
             .nav-links {
@@ -1959,11 +2075,17 @@
 
     <!-- REMOVED OLD SUPPORT SECTION BLOCKS -->
 
-    <!-- NEW SERVICES SECTION -->
     <section id="servicios" class="services-highlight" style="background-color: var(--flash-green); color: var(--obsidian); padding: 8rem 10%; position: relative; margin-top: 5rem; margin-bottom: 5rem;">
         <!-- Tectonic Top Edge -->
         <div style="position: absolute; top: -49px; left: 0; width: 100%; height: 50px; background: var(--flash-green); clip-path: polygon(0 100%, 100% 0, 100% 100%); z-index: 1;"></div>
         
+        <div style="text-align: center; margin-bottom: 6rem; position: relative; z-index: 2;">
+            <div style="font-family: var(--font-mono); font-weight: 800; margin-bottom: 1.5rem; color: #000; letter-spacing: 5px;">[ SOLUCIONES_DIGITALES ]</div>
+            <h2 style="font-size: 4rem; font-weight: 900; text-transform: uppercase; line-height: 0.9; font-style: italic; color: #000; margin: 0;">
+                NUESTROS <br> <span style="color: #fff; -webkit-text-stroke: 1px #000; text-shadow: 6px 6px 0px #000;">SERVICIOS</span>
+            </h2>
+        </div>
+
         <div class="service-container" style="display: flex; flex-direction: column; gap: 8rem;">
             
             <!-- Service 1: Internet -->
@@ -2084,16 +2206,26 @@
                 <div style="font-size: 1.5rem; font-weight: 800; margin: 1rem 0; color: var(--flash-green)">150.000 GS</div>
                 <a href="https://wa.me/595973553233?text=Hola,%20quiero%20el%20plan%20de%20200MB" class="btn-primary" style="display: block; margin-top: 1rem;">Solicitar</a>
             </div>
-            <div class="plan-item" style="outline: 1px solid var(--border-green); background: #0a0a0a;">
-                <div style="color: var(--flash-green); font-family: var(--font-mono); font-size: 0.7rem; margin-bottom: 2rem;">RECOMENDADO</div>
-                <h4 style="color: var(--flash-green)">300<span>MB</span></h4>
-                <ul class="plan-features">
-                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align: middle; margin-right: 8px;"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>WIFI ILIMITADO</li>
-                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 8px;"><rect x="2" y="2" width="20" height="20" rx="3" fill="currentColor"/><path d="M12 7v10M7 12h10" stroke="#58D600" stroke-width="2.5" stroke-linecap="round"/></svg>FLASH TV</li>
-                    <li class="device-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 8px;"><rect x="6" y="8" width="12" height="9" rx="1"/><line x1="3" y1="20" x2="21" y2="20"/></svg>2 Dispositivos TV</li>
-                </ul>
-                <div style="font-size: 1.5rem; font-weight: 800; margin: 1rem 0; color: var(--flash-green)">180.000 GS</div>
-                <a href="https://wa.me/595973553233?text=Hola,%20quiero%20el%20plan%20de%20300MB" class="btn-primary" style="display: block; margin-top: 1rem;">Solicitar</a>
+            <div class="plan-item recommended" id="recommended-plan-card">
+                <div class="eb-canvas-container">
+                    <canvas class="eb-canvas"></canvas>
+                </div>
+                <div class="eb-layers">
+                    <div class="eb-glow-1"></div>
+                    <div class="eb-glow-2"></div>
+                    <div class="eb-background-glow"></div>
+                </div>
+                <div class="eb-content">
+                    <div class="shiny-green" style="font-family: var(--font-mono); font-size: 0.7rem; margin-bottom: 2rem; font-weight: 800; display: block;">RECOMENDADO</div>
+                    <h4 class="shiny-green" style="font-weight: 900; display: block;">300<span>MB</span></h4>
+                    <ul class="plan-features">
+                        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" style="vertical-align: middle; margin-right: 8px;"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="#666"/></svg><span class="shiny-silver">WIFI ILIMITADO</span></li>
+                        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="#666" style="vertical-align: middle; margin-right: 8px;"><rect x="2" y="2" width="20" height="20" rx="3" fill="#666"/><path d="M12 7v10M7 12h10" stroke="#58D600" stroke-width="2.5" stroke-linecap="round"/></svg><span class="shiny-silver">FLASH TV</span></li>
+                        <li class="device-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" style="vertical-align: middle; margin-right: 8px;"><rect x="6" y="8" width="12" height="9" rx="1"/><line x1="3" y1="20" x2="21" y2="20"/></svg><span class="shiny-silver">2 Dispositivos TV</span></li>
+                    </ul>
+                    <div class="shiny-green" style="font-size: 1.5rem; font-weight: 800; margin: 1rem 0; display: block;">180.000 GS</div>
+                    <a href="https://wa.me/595973553233?text=Hola,%20quiero%20el%20plan%20de%20300MB" class="btn-primary" style="display: block; margin-top: 1rem;">Solicitar</a>
+                </div>
             </div>
             <div class="plan-item">
                 <div style="color: #444; font-family: var(--font-mono); font-size: 0.7rem; margin-bottom: 2rem;">MAX VELOCIDAD</div>
@@ -2688,6 +2820,118 @@
                 // Start initial effect after 1 second
                 setTimeout(triggerEffect, 1000);
             });
+
+            // ========== OPTIMIZED ADVANCED ELECTRIC BORDER ==========
+            const ebContainer = document.getElementById('recommended-plan-card');
+            const ebCanvas = ebContainer?.querySelector('.eb-canvas');
+            if (ebContainer && ebCanvas) {
+                const ctx = ebCanvas.getContext('2d');
+                let time = 0;
+                let lastFrameTime = 0;
+                let isAnimating = false;
+                let animationId = null;
+                const speed = 1;
+                const chaos = 0.12;
+                const borderRadius = 20;
+                const color = '#00E01F';
+                
+                // Noise functions (Optimized: less calculation per point)
+                const random = x => (Math.sin(x * 12.9898) * 43758.5453) % 1;
+                const noise2D = (x, y) => {
+                    const i = Math.floor(x), j = Math.floor(y);
+                    const fx = x - i, fy = y - j;
+                    const a = random(i + j * 57), b = random(i + 1 + j * 57);
+                    const c = random(i + (j + 1) * 57), d = random(i + 1 + (j + 1) * 57);
+                    const ux = fx * fx * (3.0 - 2.0 * fx), uy = fy * fy * (3.0 - 2.0 * fy);
+                    return a * (1 - ux) * (1 - uy) + b * ux * (1 - uy) + c * (1 - ux) * uy + d * ux * uy;
+                };
+
+                const octavedNoise = (x, octaves, lacunarity, gain, amp, freq, time, seed) => {
+                    let y = 0;
+                    for (let i = 0; i < octaves; i++) {
+                        y += amp * noise2D(freq * x + seed * 100, time * freq * 0.3);
+                        freq *= lacunarity; amp *= gain;
+                    }
+                    return y;
+                };
+
+                const getRoundedRectPoint = (t, l, tE, w, h, r) => {
+                    const sw = w - 2 * r, sh = h - 2 * r, ca = (Math.PI * r) / 2;
+                    const tp = 2 * sw + 2 * sh + 4 * ca, d = t * tp;
+                    let acc = 0;
+                    const gCP = (cX, cY, r, sA, aL, p) => ({ x: cX + r * Math.cos(sA + p * aL), y: cY + r * Math.sin(sA + p * aL) });
+                    if (d <= acc + sw) return { x: l + r + (d - acc) / sw * sw, y: tE };
+                    acc += sw;
+                    if (d <= acc + ca) return gCP(l + w - r, tE + r, r, -Math.PI / 2, Math.PI / 2, (d - acc) / ca);
+                    acc += ca;
+                    if (d <= acc + sh) return { x: l + w, y: tE + r + (d - acc) / sh * sh };
+                    acc += sh;
+                    if (d <= acc + ca) return gCP(l + w - r, tE + h - r, r, 0, Math.PI / 2, (d - acc) / ca);
+                    acc += ca;
+                    if (d <= acc + sw) return { x: l + w - r - (d - acc) / sw * sw, y: tE + h };
+                    acc += sw;
+                    if (d <= acc + ca) return gCP(l + r, tE + h - r, r, Math.PI / 2, Math.PI / 2, (d - acc) / ca);
+                    acc += ca;
+                    if (d <= acc + sh) return { x: l, y: tE + h - r - (d - acc) / sh * sh };
+                    acc += sh;
+                    return gCP(l + r, tE + r, r, Math.PI, Math.PI / 2, (d - acc) / ca);
+                };
+
+                const updateSize = () => {
+                    const rect = ebContainer.getBoundingClientRect();
+                    const bO = 60;
+                    const w = rect.width + bO * 2, h = rect.height + bO * 2;
+                    const dpr = Math.min(window.devicePixelRatio || 1, 1.5); // Capped at 1.5 for better performance
+                    ebCanvas.width = w * dpr; ebCanvas.height = h * dpr;
+                    ebCanvas.style.width = `${w}px`; ebCanvas.style.height = `${h}px`;
+                    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                    return { w, h, bO };
+                };
+
+                let { w, h, bO } = updateSize();
+                const draw = (currentTime) => {
+                    if (!isAnimating) return;
+                    const dT = (currentTime - lastFrameTime) / 1000;
+                    time += dT * speed || 0; lastFrameTime = currentTime;
+                    ctx.clearRect(0, 0, w, h);
+                    ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+                    const scale = 50, l = bO, tE = bO, bW = w - 2 * bO, bH = h - 2 * bO;
+                    const r = Math.min(borderRadius, Math.min(bW, bH) / 2);
+                    // Reduced sampling: step every 4 pixels instead of 2
+                    const sC = Math.floor((2 * (bW + bH) + 2 * Math.PI * r) / 4);
+                    ctx.beginPath();
+                    for (let i = 0; i <= sC; i++) {
+                        const prog = i / sC, pt = getRoundedRectPoint(prog, l, tE, bW, bH, r);
+                        // Reduced octaves from 10 to 4 for much faster calculation
+                        const xN = octavedNoise(prog * 8, 4, 1.6, 0.7, chaos, 10, time, 0);
+                        const yN = octavedNoise(prog * 8, 4, 1.6, 0.7, chaos, 10, time, 1);
+                        if (i === 0) ctx.moveTo(pt.x + xN * scale, pt.y + yN * scale);
+                        else ctx.lineTo(pt.x + xN * scale, pt.y + yN * scale);
+                    }
+                    ctx.stroke();
+                    animationId = requestAnimationFrame(draw);
+                };
+
+                // Resize observer to maintain canvas size
+                new ResizeObserver(() => { const s = updateSize(); w = s.w; h = s.h; bO = s.bO; }).observe(ebContainer);
+
+                // Intersection Observer: Start/Stop animation based on visibility
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            if (!isAnimating) {
+                                isAnimating = true;
+                                lastFrameTime = performance.now();
+                                animationId = requestAnimationFrame(draw);
+                            }
+                        } else {
+                            isAnimating = false;
+                            if (animationId) cancelAnimationFrame(animationId);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                observer.observe(ebContainer);
+            }
 
             // ========== HAMBURGER MENU FUNCTIONALITY ==========
             const hamburgerBtn = document.getElementById('hamburger-btn');
