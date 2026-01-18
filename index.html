@@ -137,7 +137,7 @@
             position: absolute;
             top: 0;
             right: 0;
-            width: 55%;
+            width: 50%;
             height: 100%;
             z-index: 1;
             /* Fade image slightly into background on the left */
@@ -264,11 +264,7 @@
 
         .hero h1 span {
             display: block;
-            -webkit-text-stroke: 1px var(--flash-green);
-            color: transparent;
-            font-family: var(--font-mono);
-            font-weight: 800;
-            letter-spacing: 1px;
+            color: rgba(0, 240, 32, 0.651);
         }
 
         .hero-cta {
@@ -606,23 +602,26 @@
         }
 
 
-        /* Neon Snake Border Animation */
+        /* Neon Glow Border Animation - Enhanced */
         .review-card {
-            overflow: hidden; /* Essential for masking the travelling lines */
+            overflow: hidden;
+            position: relative;
+            box-shadow: 
+                0 0 15px rgba(0, 224, 30, 0.4),
+                0 0 30px rgba(0, 224, 30, 0.5),
+                0 0 45px rgba(0, 224, 30, 0.6),
+                0 0 60px rgba(0, 224, 30, 0.7),
+                0 0 100px rgba(0, 224, 30, 0.8);
         }
         
         .review-card span.neon-border {
             position: absolute;
             display: block;
+            filter: blur(1px);
         }
 
         .review-card span.neon-border:nth-child(1) {
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--flash-green));
-            animation: btn-anim1 5s linear infinite;
+            display: none;
         }
 
         @keyframes btn-anim1 {
@@ -633,11 +632,12 @@
         .review-card span.neon-border:nth-child(2) {
             top: -100%;
             right: 0;
-            width: 2px;
+            width: 3px;
             height: 100%;
-            background: linear-gradient(180deg, transparent, var(--flash-green));
-            animation: btn-anim2 5s linear infinite;
-            animation-delay: 1.25s;
+            background: linear-gradient(180deg, transparent, rgba(0,224,31,0.8), var(--flash-green), rgba(0,224,31,0.8), transparent);
+            animation: btn-anim2 2s linear infinite;
+            animation-delay: 1s;
+            box-shadow: 0 0 15px rgba(0, 224, 30, 0.377), 0 0 30px rgba(0,224,31,0.3);
         }
 
         @keyframes btn-anim2 {
@@ -649,10 +649,11 @@
             bottom: 0;
             right: -100%;
             width: 100%;
-            height: 2px;
-            background: linear-gradient(270deg, transparent, var(--flash-green));
-            animation: btn-anim3 5s linear infinite;
-            animation-delay: 2.5s;
+            height: 3px;
+            background: linear-gradient(270deg, transparent, rgba(0,224,31,0.8), var(--flash-green), rgba(0,224,31,0.8), transparent);
+            animation: btn-anim3 2s linear infinite;
+            animation-delay: 1s;
+            box-shadow: 0 0 15px rgba(0, 224, 30, 0.432), 0 0 30px rgba(0,224,31,0.3);
         }
 
         @keyframes btn-anim3 {
@@ -663,11 +664,12 @@
         .review-card span.neon-border:nth-child(4) {
             bottom: -100%;
             left: 0;
-            width: 2px;
+            width: 3px;
             height: 100%;
-            background: linear-gradient(360deg, transparent, var(--flash-green));
-            animation: btn-anim4 5s linear infinite;
-            animation-delay: 3.75s;
+            background: linear-gradient(360deg, transparent, rgba(0,224,31,0.9), var(--flash-green), rgba(0,224,31,0.9), transparent);
+            animation: btn-anim4 4s linear infinite;
+            animation-delay: 3s;
+            box-shadow: 0 0 20px rgba(0, 224, 31, 0.6), 0 0 40px rgba(0,224,31,0.5);
         }
 
         @keyframes btn-anim4 {
@@ -1860,16 +1862,16 @@
 
             .text-red { 
                 color: #ff1111; 
-                text-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 0 40px rgba(255, 0, 0, 0.4); 
-                -webkit-text-stroke: 1.5px #fff;
+                text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff, 0 0 6px rgba(255, 0, 0, 0.6), 0 0 20px rgba(255, 0, 0, 0.4), 10px 10px 30px rgba(0,0,0,0.75);
+                -webkit-text-stroke: 0;
             }
             .text-green { 
                 color: var(--flash-green); 
-                text-shadow: 0 0 20px rgba(0, 224, 31, 0.8), 0 0 40px rgba(0, 224, 31, 0.4); 
-                -webkit-text-stroke: 1.5px #fff;
+                text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff, 0 0 6px rgba(0, 224, 31, 0.6), 0 0 20px rgba(0, 224, 31, 0.4), 10px 10px 30px rgba(0,0,0,0.75);
+                -webkit-text-stroke: 0;
             }
             .text-dim { color: #ccc; }
-            .text-white { color: #fff; text-shadow: 4px 4px 0px rgba(0,0,0,1); }
+            .text-white { color: #fff; text-shadow: 2px 2px 6px rgba(0,0,0,0.6); }
 
             /* Flyer-Style Cards Row */
             .support-cards-row {
@@ -2088,13 +2090,11 @@
     <!-- REMOVED OLD SUPPORT SECTION BLOCKS -->
 
     <section id="servicios" class="services-highlight" style="background-color: var(--flash-green); color: var(--obsidian); padding: 8rem 10%; position: relative; margin-top: 5rem; margin-bottom: 5rem;">
-        <!-- Tectonic Top Edge -->
-        <div style="position: absolute; top: -49px; left: 0; width: 100%; height: 50px; background: var(--flash-green); clip-path: polygon(0 100%, 100% 0, 100% 100%); z-index: 1;"></div>
         
         <div style="text-align: center; margin-bottom: 6rem; position: relative; z-index: 2;">
             <div style="font-family: var(--font-mono); font-weight: 800; margin-bottom: 1.5rem; color: #000; letter-spacing: 5px;">[ SOLUCIONES_DIGITALES ]</div>
             <h2 style="font-size: 4rem; font-weight: 900; text-transform: uppercase; line-height: 0.9; font-style: italic; color: #000; margin: 0;">
-                NUESTROS <br> <span style="color: #fff; -webkit-text-stroke: 1px #000; text-shadow: 6px 6px 0px #000;">SERVICIOS</span>
+                NUESTROS <br> <span style="color: #fff; text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 4px 4px 0px #000;">SERVICIOS</span>
             </h2>
         </div>
 
@@ -2105,7 +2105,7 @@
                <div class="service-text" style="flex: 1;">
                    <div style="font-family: var(--font-mono); font-weight: 800; margin-bottom: 1rem; color: #000; letter-spacing: 2px;">[ CONEXIÓN_TOTAL ]</div>
                    <h2 style="font-size: 3.5rem; font-weight: 900; text-transform: uppercase; line-height: 0.9; margin-bottom: 2rem; font-style: italic; color: #000;">
-                       INTERNET <br> <span style="color: #fff; -webkit-text-stroke: 1px #000; text-shadow: 4px 4px 0px #000;">ULTRA RÁPIDO</span>
+                       INTERNET <br> <span style="color: #fff; text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 4px 4px 0px #000;">ULTRA RÁPIDO</span>
                    </h2>
                    <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 2rem; max-width: 450px; color: #111; line-height: 1.4;">
                        Conectividad sin interrupciones para lo que más importa. Juegos online sin lag, trabajo remoto fluido y descargas instantáneas gracias a nuestra fibra óptica de última generación.
@@ -2129,7 +2129,7 @@
                <div class="service-text" style="flex: 1; text-align: right;">
                    <div style="font-family: var(--font-mono); font-weight: 800; margin-bottom: 1rem; color: #000; letter-spacing: 2px;">[ ENTRETENIMIENTO_HD ]</div>
                    <h2 style="font-size: 3.5rem; font-weight: 900; text-transform: uppercase; line-height: 0.9; margin-bottom: 2rem; font-style: italic; color: #000;">
-                       FLASH TV <br> <span style="color: #fff; -webkit-text-stroke: 1px #000; text-shadow: 4px 4px 0px #000;">DIGITAL HD</span>
+                       FLASH TV <br> <span style="color: #fff; text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 4px 4px 0px #000;">DIGITAL HD</span>
                    </h2>
                    <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 2rem; margin-left: auto; max-width: 450px; color: #111; line-height: 1.4;">
                        Vive la pasión del fútbol paraguayo e internacional y el mejor entretenimiento en alta definición. Más de 100 canales premium para disfrutar en familia sin cortes.
@@ -2231,7 +2231,8 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--flash-green)"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--flash-green)"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--flash-green)"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--flash-green)"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="url(#halfFill)"><defs><linearGradient id="halfFill" x1="0%" x2="100%"><stop offset="50%" stop-color="var(--flash-green)"/><stop offset="50%" stop-color="#666"/></linearGradient></defs><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <span style="font-family: var(--font-mono); font-size: 0.85rem; color: #ccc; margin-left: 0.5rem;">4.6</span>
             </div>
         </div>
 
@@ -2279,6 +2280,59 @@
                 width: 30px;
                 border-radius: 5px;
             }
+            /* Hide only the dots; keep navigation arrow buttons visible */
+            #review-dots, .review-dot {
+                display: none !important;
+            }
+
+            /* Improved arrow button styling for reviews carousel */
+            .review-nav-btn {
+                width: 64px !important;
+                height: 64px !important;
+                border-radius: 50% !important;
+                background: linear-gradient(135deg, rgba(0,224,31,0.25), rgba(0,224,31,0.15)) !important;
+                border: 2.5px solid var(--flash-green) !important;
+                color: var(--flash-green) !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                box-shadow: 
+                    0 0 20px rgba(0,224,31,0.35),
+                    0 0 40px rgba(0,224,31,0.15),
+                    0 8px 20px rgba(0,0,0,0.5),
+                    inset 0 0 12px rgba(0,224,31,0.1) !important;
+                backdrop-filter: blur(12px) !important;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                z-index: 20 !important;
+                opacity: 0.15 !important;
+                font-weight: bold;
+            }
+
+            .review-nav-btn svg { stroke: var(--flash-green) !important; width: 24px; height: 24px; stroke-width: 2; }
+
+            /* Show on hover of parent container or direct button hover */
+            div[style*="max-width: 800px"]:hover .review-nav-btn,
+            .review-nav-btn:hover {
+                opacity: 1 !important;
+            }
+
+            .review-nav-btn:hover {
+                transform: scale(1.12) !important;
+                background: linear-gradient(135deg, rgba(0,224,31,0.4), rgba(0,224,31,0.25)) !important;
+                box-shadow: 
+                    0 0 30px rgba(0,224,31,0.5),
+                    0 0 60px rgba(0,224,31,0.25),
+                    0 12px 30px rgba(0,0,0,0.6),
+                    inset 0 0 16px rgba(0,224,31,0.15) !important;
+            }
+
+            .review-nav-btn:active {
+                transform: scale(1.08) !important;
+            }
+
+            /* Position arrows outside the card edges */
+            .review-nav-btn.prev { left: -80px !important; top: 50% !important; transform: translateY(-50%) !important; }
+            .review-nav-btn.next { right: -80px !important; top: 50% !important; transform: translateY(-50%) !important; }
         </style>
     </section>
 
@@ -2412,13 +2466,11 @@
     </section>
     <!-- Ayuda y Soporte Section -->
     <section id="ayuda" class="services-highlight" style="background-color: var(--flash-green); color: var(--obsidian); padding: 8rem 10%; position: relative; margin-top: 5rem; margin-bottom: 5rem;">
-        <!-- Tectonic Top Edge -->
-        <div style="position: absolute; top: -49px; left: 0; width: 100%; height: 50px; background: var(--flash-green); clip-path: polygon(0 100%, 100% 0, 100% 100%); z-index: 1;"></div>
         
         <div style="text-align: center; margin-bottom: 6rem; position: relative; z-index: 2;">
             <div style="font-family: var(--font-mono); font-weight: 800; margin-bottom: 1.5rem; color: #000; letter-spacing: 5px;">[ MÁS_INFORMACIÓN ]</div>
             <h2 style="font-size: 4rem; font-weight: 900; text-transform: uppercase; line-height: 0.9; font-style: italic; color: #000; margin: 0;">
-                AYUDA & <br> <span style="color: #fff; -webkit-text-stroke: 1px #000; text-shadow: 6px 6px 0px #000;">SOPORTE</span>
+                AYUDA & <br> <span style="color: #fff; text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 6px 6px 0px #000;">SOPORTE</span>
             </h2>
         </div>
 
@@ -2428,7 +2480,7 @@
                <div class="service-text" style="flex: 1;">
                    <div style="font-family: var(--font-mono); font-weight: 800; margin-bottom: 1rem; color: #000; letter-spacing: 2px;">[ PROTECCIÓN_FAMILIAR ]</div>
                    <h2 style="font-size: 3.5rem; font-weight: 900; text-transform: uppercase; line-height: 0.9; margin-bottom: 2rem; font-style: italic; color: #000;">
-                       CONTROL <br> <span style="color: #fff; -webkit-text-stroke: 1px #000; text-shadow: 4px 4px 0px #000;">PARENTAL</span>
+                       CONTROL <br> <span style="color: #fff; text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 4px 4px 0px #000;">PARENTAL</span>
                    </h2>
                    <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 2rem; max-width: 480px; color: #111; line-height: 1.4;">
                        Protegé a tus hijos en lo que ven, lo que hacen con sus dispositivos y dónde se encuentran. Controlá el entorno digital de tu familia con herramientas avanzadas de seguridad.
@@ -2711,18 +2763,11 @@
                     <div class="review-card" style="background: rgba(255,255,255,0.03); padding: 3rem; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); position: relative; height: 100%;">
                         <span class="neon-border"></span>
                         <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem;">
-                            <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--flash-green), #fff); display: flex; align-items: center; justify-content: center; font-weight: 800; color: #000; font-size: 1.2rem; box-shadow: 0 0 20px rgba(88, 214, 0, 0.3);">
+                            <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--flash-green), rgba(0,224,31,0.5)); display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000; font-size: 1.3rem; box-shadow: 0 0 12px rgba(88, 214, 0, 0.25), 0 0 20px rgba(88, 214, 0, 0.12), inset 0 0 15px rgba(255,255,255,0.2); border: 2px solid rgba(0,224,31,0.7); position: relative; backdrop-filter: blur(10px);">
                                 ${review.initials}
                             </div>
                             <div>
                                 <h4 style="margin: 0; font-size: 1.2rem; color: #fff;">${review.name}</h4>
-                                <div style="display: flex; color: var(--flash-green); gap: 2px; margin-top: 5px;">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                </div>
                             </div>
                             <svg style="margin-left: auto; opacity: 0.2; color: var(--flash-green);" width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 7.55228 14.017 7V5C14.017 4.44772 14.4647 4 15.017 4H21.017C21.5693 4 22.017 4.44772 22.017 5V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM3.017 21L3.017 18C3.017 16.8954 3.91243 16 5.017 16H8.017C8.56928 16 9.017 15.5523 9.017 15V9C9.017 8.44772 8.56928 8 8.017 8H4.017C3.46472 8 3.017 7.55228 3.017 7V5C3.017 4.44772 3.46472 4 4.017 4H10.017C10.5693 4 11.017 4.44772 11.017 5V15C11.017 18.3137 8.33072 21 5.017 21H3.017Z"/></svg>
                         </div>
@@ -2759,7 +2804,7 @@
         }
 
         function startReviewTimer() {
-            reviewInterval = setInterval(() => moveReview(1), 6000);
+            reviewInterval = setInterval(() => moveReview(1), 8000);
         }
 
         function resetReviewTimer() {
