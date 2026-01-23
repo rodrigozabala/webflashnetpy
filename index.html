@@ -14,7 +14,7 @@
     <style>
         :root {
             --obsidian: #080808;
-            --flash-green: #00E01F;
+            --flash-green: #20db2f;
             --pure-white: #ffffff;
             --glass: rgba(255, 255, 255, 0.03);
             --border-green: rgba(0, 224, 31, 0.3);
@@ -58,6 +58,66 @@
             transform: rotate(-45deg);
         }
 
+        /* Topbar */
+        .topbar {
+            height: 48px;
+            background-color: var(--flash-green);
+            color: var(--obsidian);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 101;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .topbar-contact {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: white;
+            font-weight: 400;
+        }
+
+        .topbar-contact span {
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .topbar-socials {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .topbar-socials a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background-color: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .topbar-socials a:hover {
+            background-color: var(--obsidian);
+        }
+
+        .topbar-socials svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--flash-green);
+        }
+
         /* Navigation */
         nav {
             display: flex;
@@ -66,7 +126,7 @@
             padding: 0 5%;
             position: fixed;
             width: 100%;
-            top: 0;
+            top: 48px;
             z-index: 100;
             background-color: var(--obsidian);
             border-bottom: 1px solid var(--glass);
@@ -121,7 +181,7 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 120px 10% 60px; /* Reduced vertical gap and added top padding for nav */
+            padding: 170px 10% 60px; /* Adjusted topside for topbar + nav */
             position: relative;
             overflow: hidden;
         }
@@ -176,10 +236,6 @@
             width: fit-content;
         }
 
-        /* Apply glitch to static hero-mono spans in slides */
-        .hero-slide.active .hero-mono:not(#hero-typewriter) {
-            animation: glitch-mono 6s infinite;
-        }
 
         .hero-mono.typing {
             animation: none;
@@ -810,6 +866,7 @@
                 padding: 0 10px 0 0;
                 height: 65px;
                 position: fixed;
+                top: 48px;
             }
 
             .logo-container {
@@ -831,11 +888,11 @@
 
             .nav-links {
                 position: fixed;
-                top: 60px;
+                top: 113px;
                 right: 0;
                 width: 70%;
                 max-width: 300px;
-                height: calc(100vh - 60px);
+                height: calc(100vh - 113px);
                 background: var(--obsidian);
                 border-left: 1px solid var(--flash-green);
                 flex-direction: column;
@@ -1354,6 +1411,15 @@
                 grid-template-columns: repeat(2, 1fr) !important;
             }
         }
+
+        @media (max-width: 480px) {
+            .topbar-contact span {
+                display: none;
+            }
+            .topbar {
+                font-size: 0.7rem;
+            }
+        }
     </style>
 
 </head>
@@ -1362,6 +1428,23 @@
     <div class="grid-overlay"></div>
     <div class="tectonic-plate"></div>
     
+    <div class="topbar">
+        <div class="topbar-contact">
+            <span>Atención al cliente:</span> 0973 553 233 - 0986 296 584
+        </div>
+        <div class="topbar-socials">
+            <a href="https://www.facebook.com/Flashnetpy" target="_blank" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 13.5H16.5L17.5 9.5H14V7.5C14 6.47062 14 5.5 16 5.5H17.5V2.1401C17.1743 2.09685 15.943 2 14.6429 2C11.9284 2 10 3.65686 10 6.69971V9.5H7V13.5H10V22H14V13.5Z"></path></svg>
+            </a>
+            <a href="https://www.instagram.com/flashnetpy/" target="_blank" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 9C10.3436 9 9.00098 10.3431 9.00098 12C9.00098 13.6573 10.3441 15 12.001 15C13.6583 15 15.001 13.6569 15.001 12C15.001 10.3427 13.6579 9 12.001 9ZM12.001 7C14.7614 7 17.001 9.2371 17.001 12C17.001 14.7605 14.7639 17 12.001 17C9.24051 17 7.00098 14.7629 7.00098 12C7.00098 9.23953 9.23808 7 12.001 7ZM18.501 6.74915C18.501 7.43926 17.9402 7.99917 17.251 7.99917C16.5609 7.99917 16.001 7.4384 16.001 6.74915C16.001 6.0599 16.5617 5.5 17.251 5.5C17.9393 5.49913 18.501 6.0599 18.501 6.74915ZM12.001 4C9.5265 4 9.12318 4.00655 7.97227 4.0578C7.18815 4.09461 6.66253 4.20007 6.17416 4.38967C5.74016 4.55799 5.42709 4.75898 5.09352 5.09255C4.75867 5.4274 4.55804 5.73963 4.3904 6.17383C4.20036 6.66332 4.09493 7.18811 4.05878 7.97115C4.00703 9.0752 4.00098 9.46105 4.00098 12C4.00098 14.4745 4.00753 14.8778 4.05877 16.0286C4.0956 16.8124 4.2012 17.3388 4.39034 17.826C4.5591 18.2606 4.7605 18.5744 5.09246 18.9064C5.42863 19.2421 5.74179 19.4434 6.17187 19.6094C6.66619 19.8005 7.19148 19.9061 7.97212 19.9422C9.07618 19.9939 9.46203 20 12.001 20C14.4755 20 14.8788 19.9934 16.0296 19.9422C16.8117 19.9055 17.3385 19.7996 17.827 19.6106C18.2604 19.4423 18.5752 19.2402 18.9074 18.9085C19.2436 18.5718 19.4445 18.2594 19.6107 17.8283C19.8013 17.3358 19.9071 16.8098 19.9432 16.0289C19.9949 14.9248 20.001 14.5389 20.001 12C20.001 9.52552 19.9944 9.12221 19.9432 7.97137C19.9064 7.18906 19.8005 6.66149 19.6113 6.17318C19.4434 5.74038 19.2417 5.42635 18.9084 5.09255C18.573 4.75715 18.2616 4.55693 17.8271 4.38942C17.338 4.19954 16.8124 4.09396 16.0298 4.05781C14.9258 4.00605 14.5399 4 12.001 4ZM12.001 2C14.7176 2 15.0568 2.01 16.1235 2.06C17.1876 2.10917 17.9135 2.2775 18.551 2.525C19.2101 2.77917 19.7668 3.1225 20.3226 3.67833C20.8776 4.23417 21.221 4.7925 21.476 5.45C21.7226 6.08667 21.891 6.81333 21.941 7.8775C21.9885 8.94417 22.001 9.28333 22.001 12C22.001 14.7167 21.991 15.0558 21.941 16.1225C21.8918 17.1867 21.7226 17.9125 21.476 18.55C21.2218 19.2092 20.8776 19.7658 20.3226 20.3217C19.7668 20.8767 19.2076 21.22 18.551 21.475C17.9135 21.7217 17.1876 21.89 16.1235 21.94C15.0568 21.9875 14.7176 22 12.001 22C9.28431 22 8.94514 21.99 7.87848 21.94C6.81431 21.8908 6.08931 21.7217 5.45098 21.475C4.79264 21.2208 4.23514 20.8767 3.67931 20.3217C3.12348 19.7658 2.78098 19.2067 2.52598 18.55C2.27848 17.9125 2.11098 17.1867 2.06098 16.1225C2.01348 15.0558 2.00098 14.7167 2.00098 12C2.00098 9.28333 2.01098 8.94417 2.06098 7.8775C2.11014 6.8125 2.27848 6.0875 2.52598 5.45C2.78014 4.79167 3.12348 4.23417 3.67931 3.67833C4.23514 3.1225 4.79348 2.78 5.45098 2.525C6.08848 2.2775 6.81348 2.11 7.87848 2.06C8.94514 2.0125 9.28431 2 12.001 2Z"></path></svg>
+            </a>
+            <a href="https://www.tiktok.com/@flashnetpy/video/7446866267845233926" target="_blank" aria-label="TikTok">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8.24537V15.5C16 19.0899 13.0899 22 9.5 22C5.91015 22 3 19.0899 3 15.5C3 11.9101 5.91015 9 9.5 9C10.0163 9 10.5185 9.06019 11 9.17393V12.3368C10.5454 12.1208 10.0368 12 9.5 12C7.567 12 6 13.567 6 15.5C6 17.433 7.567 19 9.5 19C11.433 19 13 17.433 13 15.5V2H16C16 4.76142 18.2386 7 21 7V10C19.1081 10 17.3696 9.34328 16 8.24537Z"></path></svg>
+            </a>
+        </div>
+    </div>
+
     <nav>
         <div class="logo-container">
             <img src="img/logo-flashnet.png" alt="FlashNet" style="height: 75px; width: auto; object-fit: contain;">
@@ -1417,9 +1500,6 @@
                     animation: slide-in-right 0.8s 0.1s forwards, glitch-text 5s 1s infinite; 
                     opacity: 0; 
                 }
-                .hero-slide.active .hero-mono { 
-                    animation: glitch-mono 4s infinite; 
-                }
                 .hero-slide.active p { 
                     animation: slide-in-right 0.8s 0.2s forwards; 
                     opacity: 0; 
@@ -1434,22 +1514,52 @@
             <div class="hero-text-slider">
                 <!-- Slide 1: Gamer (Original) -->
                 <div class="hero-slide active" data-slide="0">
-                    <span class="hero-mono" id="hero-typewriter"></span>
-                    
-                    <script>
-        // Initialize Text Slider
-        document.addEventListener('DOMContentLoaded', () => {
-            // [EXISTING CODE PRESERVED]
-            // ... (keeping existing text slider logic)
-        });
+                    <span class="hero-mono" data-text="[ INICIANDO_PARTIDA ]"></span>
 
-        // Initialize Grid Pulse Engine with robust loading check
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initGridPulses);
-        } else {
-            initGridPulses();
-        }
+                    <h1>¿VELOCIDAD PARA<br><span>TUS JUEGOS?</span></h1>
+                    <p style="color: #dfdfdfee; max-width: 500px; margin-bottom: 3rem; font-size: 1.1rem;">
+                         <span style="color: var(--flash-green); font-weight: bold;">PING BAJO, CERO LAG</span> y partidas sin interrupciones. Internet pensado para gamers exigentes como vos.
+                    </p>
+                </div>
 
+                <!-- Slide 2: Work (Stability) -->
+                <div class="hero-slide" data-slide="1">
+                    <span class="hero-mono" data-text="[ CONEXIÓN_SEGURA ]"></span>
+                    <h1>TRABAJÁ DESDE<br><span>CASA SIN PROBLEMAS</span></h1>
+                    <p style="color: #bbbbbb; max-width: 500px; margin-bottom: 3rem; font-size: 1.1rem;">
+                        Reuniones online sin interrupciones ni cortes. La estabilidad que tu <span style="color: var(--flash-green); font-weight: bold;">HOME OFFICE</span> necesita para ser productivo.
+                    </p>
+                </div>
+
+                <!-- Slide 3: Streaming (Entertainment) -->
+                <div class="hero-slide" data-slide="2">
+                    <span class="hero-mono" data-text="[ MODO_CINE_4K ]"></span>
+                    <h1>TU SERIE NO<br><span>PUEDE ESPERAR</span></h1>
+                    <p style="color: #bbbbbb; max-width: 500px; margin-bottom: 3rem; font-size: 1.1rem;">
+                        Streaming en <span style="color: var(--flash-green); font-weight: bold;">ULTRA HD</span> sin pausas ni cargas. Disfrutá de películas y partidos en vivo con la mejor definición.
+                    </p>
+                </div>
+
+                <!-- Slide 4: Family (Connectivity) -->
+                <div class="hero-slide" data-slide="3">
+                    <span class="hero-mono" data-text="[ COBERTURA_TOTAL ]"></span>
+                    <h1>TU CASA MERECE<br><span>INTERNET DE VERDAD</span></h1>
+                    <p style="color: #bbbbbb; max-width: 500px; margin-bottom: 3rem; font-size: 1.1rem;">
+                        Conectá todos los dispositivos de tu familia simultáneamente. <span style="color: var(--flash-green); font-weight: bold;">VELOCIDAD REAL</span> para cada rincón de tu hogar.
+                    </p>
+                </div>
+
+                <!-- Slide 5: Cheetah (Speed & Stability) -->
+                <div class="hero-slide" data-slide="4">
+                    <span class="hero-mono" data-text="[ MODO_MAX_SPEED ]"></span>
+                    <h1>RÁPIDO Y ESTABLE<br><span>SOLO HAY UNO</span></h1>
+                    <p style="color: #bbbbbb; max-width: 500px; margin-bottom: 3rem; font-size: 1.1rem;">
+                        Nunca tus juegos y clases virtuales fueron tan fluidos. <span style="color: var(--flash-green); font-weight: bold;">PÁSATE A FLASH.</span>
+                    </p>
+                </div>
+            </div>
+
+            <script>
         /* --- SYNAPTIC GRID PULSE ENGINE --- */
         function initGridPulses() {
             const container = document.querySelector('.grid-overlay');
@@ -1464,207 +1574,111 @@
         }
 
         function spawnPulse(container, gridSize) {
-            // Pulses now enabled on all devices
-
             const pulse = document.createElement('div');
             pulse.classList.add('grid-pulse');
             
-            const isHorizontal = Math.random() > 0.5;
             const distance = Math.random() * 800 + 600; 
-            const duration = Math.random() * 1800 + 1800; // Optimal speed for smooth, visible pulse movement 
+            const duration = Math.random() * 1800 + 1800;
             
-            // Random start position snapped to grid
             const maxX = window.innerWidth;
             const maxY = window.innerHeight;
             
             const startX = Math.floor(Math.random() * (maxX / gridSize)) * gridSize;
             const startY = Math.floor(Math.random() * (maxY / gridSize)) * gridSize;
 
-            // Enhanced synaptic glow effect
-            const glowIntensity = Math.random() * 0.4 + 0.8; // 0.6 to 1.0 (brighter)
+            const glowIntensity = Math.random() * 0.4 + 0.8;
             const glowColor = `rgba(0, 224, 31, ${glowIntensity})`;
-
-            // Length adjustment: increased slightly from 180px to 300px
             const rayLength = 300;
 
-            // Apply styles based on orientation
-            if (isHorizontal) {
-                pulse.style.height = '1px'; // Thinner for a sharper look
-                pulse.style.width = rayLength + 'px';
-                pulse.style.top = startY + 'px';
-                pulse.style.left = startX + 'px';
-                
-                // Advanced "Fiber-Optic" Gradient: Transparent tail -> Green -> Brilliant White Spark
-                pulse.style.background = `linear-gradient(90deg, 
-                    transparent 0%, 
-                    rgba(0, 224, 31, 0.1) 10%,
-                    rgba(0, 224, 31, 0.8) 85%,
-                    rgba(255, 255, 255, 1) 98%,
-                    #00E01F 100%)`;
-                pulse.style.boxShadow = `
-                    0 0 15px ${glowColor}, 
-                    0 0 30px rgba(0, 224, 31, 0.4),
-                    -5px 0 20px rgba(0, 224, 31, 0.2)`;
-                pulse.style.mixBlendMode = 'screen';
-                
-                const keyframes = [
-                    { transform: 'translateX(0) scaleX(0.8)', opacity: 0 },
-                    { offset: 0.1, transform: 'translateX(0) scaleX(1)', opacity: 0.8 },
-                    { offset: 0.2, opacity: 1, filter: 'brightness(1.5)' },
-                    { offset: 0.8, opacity: 1, filter: 'brightness(1)' },
-                    { offset: 0.95, opacity: 0.5 },
-                    { transform: `translateX(${distance}px) scaleX(0.8)`, opacity: 0 }
-                ];
-                
-                pulse.animate(keyframes, {
-                    duration: duration,
-                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-                }).onfinish = () => pulse.remove();
-
-            } else {
-                // Vertical
-                pulse.style.width = '1px';
-                pulse.style.height = rayLength + 'px';
-                pulse.style.top = startY + 'px';
-                pulse.style.left = startX + 'px';
-                
-                pulse.style.background = `linear-gradient(180deg, 
-                    transparent 0%, 
-                    rgba(0, 224, 31, 0.1) 10%,
-                    rgba(0, 224, 31, 0.8) 85%,
-                    rgba(255, 255, 255, 1) 98%,
-                    #00E01F 100%)`;
-                pulse.style.boxShadow = `
-                    0 0 15px ${glowColor}, 
-                    0 0 30px rgba(0, 224, 31, 0.4),
-                    0 -5px 20px rgba(0, 224, 31, 0.2)`;
-                pulse.style.mixBlendMode = 'screen';
-                
-                const keyframes = [
-                    { transform: 'translateY(0) scaleY(0.8)', opacity: 0 },
-                    { offset: 0.1, transform: 'translateY(0) scaleY(1)', opacity: 0.8 },
-                    { offset: 0.2, opacity: 1, filter: 'brightness(1.5)' },
-                    { offset: 0.8, opacity: 1, filter: 'brightness(1)' },
-                    { offset: 0.95, opacity: 0.5 },
-                    { transform: `translateY(${distance}px) scaleY(0.8)`, opacity: 0 }
-                ];
-
-                pulse.animate(keyframes, {
-                    duration: duration,
-                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-                }).onfinish = () => pulse.remove();
-            }
+            pulse.style.height = '1px';
+            pulse.style.width = rayLength + 'px';
+            pulse.style.top = startY + 'px';
+            pulse.style.left = startX + 'px';
+            
+            pulse.style.background = `linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(0, 224, 31, 0.1) 10%,
+                rgba(0, 224, 31, 0.8) 85%,
+                rgba(255, 255, 255, 1) 98%,
+                #00E01F 100%)`;
+            pulse.style.boxShadow = `
+                0 0 15px ${glowColor}, 
+                0 0 30px rgba(0, 224, 31, 0.4),
+                -5px 0 20px rgba(0, 224, 31, 0.2)`;
+            pulse.style.mixBlendMode = 'screen';
+            
+            const keyframes = [
+                { transform: 'translateX(0) scaleX(0.8)', opacity: 0 },
+                { offset: 0.1, transform: 'translateX(0) scaleX(1)', opacity: 0.8 },
+                { offset: 0.2, opacity: 1, filter: 'brightness(1.5)' },
+                { offset: 0.8, opacity: 1, filter: 'brightness(1)' },
+                { offset: 0.95, opacity: 0.5 },
+                { transform: `translateX(${distance}px) scaleX(0.8)`, opacity: 0 }
+            ];
+            
+            pulse.animate(keyframes, {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            }).onfinish = () => pulse.remove();
 
             container.appendChild(pulse);
         }
 
-                            const text = "[ INICIANDO_PARTIDA ]";
-                            const element = document.getElementById('hero-typewriter');
-                            const waitTime = 12000; 
-                            
-                            function typeLoop() {
-                                let i = 0;
-                                element.classList.add('typing');
-                                
-                                function type() {
-                                    if (i < text.length) {
-                                        element.textContent += text.charAt(i);
-                                        i++;
-                                        const randomSpeed = Math.floor(Math.random() * 70) + 30;
-                                        setTimeout(type, randomSpeed);
-                                    } else {
-                                        element.classList.remove('typing');
-                                        setTimeout(deleteText, waitTime);
-                                    }
-                                }
-                                
-                                function deleteText() {
-                                    element.classList.add('typing');
-                                    let j = text.length;
-                                    
-                                    function erase() {
-                                        if (j > 0) {
-                                            element.textContent = text.substring(0, j - 1);
-                                            j--;
-                                            const randomSpeed = Math.floor(Math.random() * 30) + 20;
-                                            setTimeout(erase, randomSpeed);
-                                        } else {
-                                            element.classList.remove('typing');
-                                            setTimeout(typeLoop, 500); 
-                                        }
-                                    }
-                                    erase();
-                                }
-                                
-                                type();
-                            }
-                            // Start
-                            // Start
-                            typeLoop();
-                    </script>
+        // Initialize Grid Pulse Engine with robust loading check
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initGridPulses);
+        } else {
+            initGridPulses();
+        }
 
-                    <h1>¿VELOCIDAD PARA<br><span>TUS JUEGOS?</span></h1>
-                    <p style="color: #dfdfdfee; max-width: 500px; margin-bottom: 3rem; font-size: 1.1rem;">
-                         <span style="color: var(--flash-green); font-weight: bold;">PING BAJO, CERO LAG</span> y partidas sin interrupciones. Internet pensado para gamers exigentes como vos.
-                    </p>
-                </div>
-
-                <!-- Slide 2: Work (Stability) -->
-                <div class="hero-slide" data-slide="1">
-                    <span class="hero-mono">[ CONEXIÓN_SEGURA ]</span>
-                    <h1>TRABAJÁ DESDE<br><span>CASA SIN PROBLEMAS</span></h1>
-                    <p style="color: #bbbbbb; max-width: 500px; margin-bottom: 3rem; font-size: 1.1rem;">
-                        Reuniones online sin interrupciones ni cortes. La estabilidad que tu <span style="color: var(--flash-green); font-weight: bold;">HOME OFFICE</span> necesita para ser productivo.
-                    </p>
-                </div>
-
-                <!-- Slide 3: Streaming (Entertainment) -->
-                <div class="hero-slide" data-slide="2">
-                    <span class="hero-mono">[ MODO_CINE_4K ]</span>
-                    <h1>TU SERIE NO<br><span>PUEDE ESPERAR</span></h1>
-                    <p style="color: #bbbbbb; max-width: 500px; margin-bottom: 3rem; font-size: 1.1rem;">
-                        Streaming en <span style="color: var(--flash-green); font-weight: bold;">ULTRA HD</span> sin pausas ni cargas. Disfrutá de películas y partidos en vivo con la mejor definición.
-                    </p>
-                </div>
-
-                <!-- Slide 4: Family (Connectivity) -->
-                <div class="hero-slide" data-slide="3">
-                    <span class="hero-mono">[ COBERTURA_TOTAL ]</span>
-                    <h1>TU CASA MERECE<br><span>INTERNET DE VERDAD</span></h1>
-                    <p style="color: #bbbbbb; max-width: 500px; margin-bottom: 3rem; font-size: 1.1rem;">
-                        Conectá todos los dispositivos de tu familia simultáneamente. <span style="color: var(--flash-green); font-weight: bold;">VELOCIDAD REAL</span> para cada rincón de tu hogar.
-                    </p>
-                </div>
-
-                <!-- Slide 5: Cheetah (Speed & Stability) -->
-                <div class="hero-slide" data-slide="4">
-                    <span class="hero-mono">[ MODO_MAX_SPEED ]</span>
-                    <h1>RÁPIDO Y ESTABLE<br><span>SOLO HAY UNO</span></h1>
-                    <p style="color: #bbbbbb; max-width: 500px; margin-bottom: 3rem; font-size: 1.1rem;">
-                        Nunca tus juegos y clases virtuales fueron tan fluidos. <span style="color: var(--flash-green); font-weight: bold;">PÁSATE A FLASH.</span>
-                    </p>
-                </div>
-            </div>
-
+            </script>
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
                     const textSlides = document.querySelectorAll('.hero-slide');
                     const imageSlides = document.querySelectorAll('.hero-visual img');
                     let currentSlide = 0;
-                    const rotateInterval = 90000; 
+                    const rotateInterval = 8000; // 8 seconds for slider
+
+                    function typeWriter(element) {
+                        const text = element.getAttribute('data-text');
+                        let i = 0;
+                        element.textContent = '';
+                        element.classList.add('typing');
+
+                        function type() {
+                            if (i < text.length) {
+                                element.textContent += text.charAt(i);
+                                i++;
+                                setTimeout(type, Math.floor(Math.random() * 40) + 30);
+                            } else {
+                                element.classList.remove('typing');
+                            }
+                        }
+                        type();
+                    }
+
+                    function showSlide(index) {
+                        textSlides.forEach((slide, i) => {
+                            slide.classList.toggle('active', i === index);
+                            imageSlides[i].classList.toggle('active', i === index);
+                            
+                            if (i === index) {
+                                const tagline = slide.querySelector('.hero-mono');
+                                if (tagline) typeWriter(tagline);
+                            }
+                        });
+                    }
+
+                    // Start initial slide
+                    showSlide(0);
 
                     setInterval(() => {
-                        // Remove active class from current
-                        textSlides[currentSlide].classList.remove('active');
-                        imageSlides[currentSlide].classList.remove('active');
-                        
-                        // Calculate next
                         currentSlide = (currentSlide + 1) % textSlides.length;
-                        
-                        // Add active class to next
-                        textSlides[currentSlide].classList.add('active');
-                        imageSlides[currentSlide].classList.add('active');
+                        showSlide(currentSlide);
                     }, rotateInterval);
+
+                    // Re-initialize Grid Pulse Engine
+                    if (typeof initGridPulses === 'function') initGridPulses();
                 });
             </script>
 
@@ -2164,13 +2178,11 @@
         <div class="plan-grid reveal">
             <div class="plan-item">
                 <div style="color: #999999; font-family: var(--font-mono); font-size: 0.7rem; margin-bottom: 2rem;">BÁSICO</div>
-                <h4>200<span>MB</span></h4>
+                <h4>150<span>MB</span></h4>
                 <ul class="plan-features">
                     <li><svg width="18px" height="18px" stroke-width="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" style="justify-content: center; vertical-align: middle; margin-right: 8px; margin-top: -2px;"><path d="M12 19.51L12.01 19.4989" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 8C8 3.5 16 3.5 22 8" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5 12C9 9 15 9 19 12" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.5 15.5C10.7504 14.1 13.2498 14.0996 15.5001 15.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>WIFI ILIMITADO</li>
-                    <li><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="justify-content: center; vertical-align: middle; margin-right: 4px; margin-top: -1px;"><rect x="2" y="2" width="20" height="20" rx="3" fill="#666"/><path d="M12 7v10M7 12h10" stroke="#58D600" stroke-width="2.5" stroke-linecap="round"/></svg>FLASH TV</li>
-                    <li class="device-item"><svg width="16px" height="16px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" style="vertical-align: middle; margin-right: 8px; margin-top: 0px;"><path d="M7 21L17 21" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z" stroke="#ffffff" stroke-width="1.5"></path></svg>1 Dispositivo TV</li>
                 </ul>
-                <div style="font-size: 1.5rem; font-weight: 800; margin: 1rem 0; color: var(--flash-green)">150.000 GS</div>
+                <div style="font-size: 1.5rem; font-weight: 800; margin: 1rem 0; color: var(--flash-green)">130.000 GS</div>
                 <a href="https://wa.me/595973553233?text=Hola,%20quiero%20el%20plan%20de%20200MB" class="btn-primary" style="display: block; margin-top: 1rem;">Solicitar</a>
             </div>
             <div class="plan-item recommended" id="recommended-plan-card">
@@ -2183,24 +2195,35 @@
                     <div class="eb-background-glow"></div>
                 </div>
                 <div class="eb-content">
-                    <div class="shiny-green" style="font-family: var(--font-mono); font-size: 0.7rem; margin-bottom: 2rem; font-weight: 800; display: block;">RECOMENDADO</div>
-                    <h4 class="shiny-green" style="font-weight: 900; display: block;">300<span>MB</span></h4>
-                    <ul class="plan-features">
-                        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" style="vertical-align: middle; margin-right: 8px;"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="#666"/></svg><span class="shiny-silver">WIFI ILIMITADO</span></li>
-                        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="#666" style="vertical-align: middle; margin-right: 8px;"><rect x="2" y="2" width="20" height="20" rx="3" fill="#666"/><path d="M12 7v10M7 12h10" stroke="#58D600" stroke-width="2.5" stroke-linecap="round"/></svg><span class="shiny-silver">FLASH TV</span></li>
-                        <li class="device-item"><svg width="16px" height="16px" stroke-width="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" style="vertical-align: middle; margin-right: 8px;"><path d="M7 21L17 21" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z" stroke="#ffffff" stroke-width="1.5"></path></svg>2 Dispositivos TV</span></li>
-                    </ul>
-                    <div class="shiny-green" style="font-size: 1.5rem; font-weight: 800; margin: 1rem 0; display: block;">180.000 GS</div>
-                    <a href="https://wa.me/595973553233?text=Hola,%20quiero%20el%20plan%20de%20300MB" class="btn-primary" style="display: block; margin-top: 1rem;">Solicitar</a>
+                <div class="shiny-green" style="color: #999999; font-family: var(--font-mono); font-size: 0.7rem; margin-bottom: 2rem; font-weight: 800; display: block;">RECOMENDADO</div>
+                <h4 class="shiny-green" style="font-weight: 900; display: block;">200<span>MB</span></h4>
+                <ul class="plan-features">
+                    <li><svg width="18px" height="18px" stroke-width="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" style="justify-content: center; vertical-align: middle; margin-right: 8px; margin-top: -2px;"><path d="M12 19.51L12.01 19.4989" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 8C8 3.5 16 3.5 22 8" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5 12C9 9 15 9 19 12" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.5 15.5C10.7504 14.1 13.2498 14.0996 15.5001 15.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>WIFI ILIMITADO</li>
+                    <li><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="justify-content: center; vertical-align: middle; margin-right: 4px; margin-top: -1px;"><rect x="2" y="2" width="20" height="20" rx="3" fill="#666"/><path d="M12 7v10M7 12h10" stroke="#58D600" stroke-width="2.5" stroke-linecap="round"/></svg>FLASH TV</li>
+                    <li class="device-item"><svg width="16px" height="16px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" style="vertical-align: middle; margin-right: 8px; margin-top: 0px;"><path d="M7 21L17 21" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z" stroke="#ffffff" stroke-width="1.5"></path></svg>1 Dispositivo TV</li>
+                </ul>
+                <div style="font-size: 1.5rem; font-weight: 800; margin: 1rem 0; color: var(--flash-green)">150.000 GS</div>
+                <a href="https://wa.me/595973553233?text=Hola,%20quiero%20el%20plan%20de%20200MB" class="btn-primary" style="display: block; margin-top: 1rem;">Solicitar</a>
                 </div>
             </div>
             <div class="plan-item">
-                <div style="color: #999999; font-family: var(--font-mono); font-size: 0.7rem; margin-bottom: 2rem;">MAX VELOCIDAD</div>
+                <div style="color: #999999; font-family: var(--font-mono); font-size: 0.7rem; margin-bottom: 2rem;">PLUS</div>
+                <h4>300<span>MB</span></h4>
+                <ul class="plan-features">
+                    <li><svg width="18px" height="18px" stroke-width="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" style="justify-content: center; vertical-align: middle; margin-right: 8px; margin-top: -2px;"><path d="M12 19.51L12.01 19.4989" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 8C8 3.5 16 3.5 22 8" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5 12C9 9 15 9 19 12" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.5 15.5C10.7504 14.1 13.2498 14.0996 15.5001 15.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>WIFI ILIMITADO</li>
+                    <li><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="justify-content: center; vertical-align: middle; margin-right: 4px; margin-top: -1px;"><rect x="2" y="2" width="20" height="20" rx="3" fill="#666"/><path d="M12 7v10M7 12h10" stroke="#58D600" stroke-width="2.5" stroke-linecap="round"/></svg>FLASH TV</li>
+                    <li class="device-item"><svg width="16px" height="16px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" style="vertical-align: middle; margin-right: 8px; margin-top: 0px;"><path d="M7 21L17 21" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z" stroke="#ffffff" stroke-width="1.5"></path></svg>2 Dispositivos TV</li>
+                </ul>
+                <div style="font-size: 1.5rem; font-weight: 800; margin: 1rem 0; color: var(--flash-green)">180.000 GS</div>
+                <a href="https://wa.me/595973553233?text=Hola,%20quiero%20el%20plan%20de%20500MB" class="btn-primary" style="display: block; margin-top: 1rem;">Solicitar</a>
+            </div>
+            <div class="plan-item">
+                <div style="color: #999999; font-family: var(--font-mono); font-size: 0.7rem; margin-bottom: 2rem;">MÁXIMA VELOCIDAD</div>
                 <h4>500<span>MB</span></h4>
                 <ul class="plan-features">
-                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align: middle; margin-right: 8px;"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>WIFI ILIMITADO</li>
-                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 8px;"><rect x="2" y="2" width="20" height="20" rx="3" fill="currentColor"/><path d="M12 7v10M7 12h10" stroke="#58D600" stroke-width="2.5" stroke-linecap="round"/></svg>FLASH TV</li>
-                    <li class="device-item"><svg width="16px" height="16px" stroke-width="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" style="vertical-align: middle; margin-right: 8px;"><path d="M7 21L17 21" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z" stroke="#ffffff" stroke-width="1.5"></path></svg>2 Dispositivos TV</li>
+                    <li><svg width="18px" height="18px" stroke-width="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" style="justify-content: center; vertical-align: middle; margin-right: 8px; margin-top: -2px;"><path d="M12 19.51L12.01 19.4989" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 8C8 3.5 16 3.5 22 8" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5 12C9 9 15 9 19 12" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.5 15.5C10.7504 14.1 13.2498 14.0996 15.5001 15.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>WIFI ILIMITADO</li>
+                    <li><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="justify-content: center; vertical-align: middle; margin-right: 4px; margin-top: -1px;"><rect x="2" y="2" width="20" height="20" rx="3" fill="#666"/><path d="M12 7v10M7 12h10" stroke="#58D600" stroke-width="2.5" stroke-linecap="round"/></svg>FLASH TV</li>
+                    <li class="device-item"><svg width="16px" height="16px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" style="vertical-align: middle; margin-right: 8px; margin-top: 0px;"><path d="M7 21L17 21" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z" stroke="#ffffff" stroke-width="1.5"></path></svg>2 Dispositivos TV</li>
                 </ul>
                 <div style="font-size: 1.5rem; font-weight: 800; margin: 1rem 0; color: var(--flash-green)">250.000 GS</div>
                 <a href="https://wa.me/595973553233?text=Hola,%20quiero%20el%20plan%20de%20500MB" class="btn-primary" style="display: block; margin-top: 1rem;">Solicitar</a>
@@ -2209,15 +2232,74 @@
                 <div style="color: #999999; font-family: var(--font-mono); font-size: 0.7rem; margin-bottom: 2rem;">PREMIUM</div>
                 <h4>500<span>MB</span></h4>
                 <ul class="plan-features">
-                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align: middle; margin-right: 8px;"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>WIFI ILIMITADO</li>
-                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 8px;"><rect x="2" y="2" width="20" height="20" rx="3" fill="currentColor"/><path d="M12 7v10M7 12h10" stroke="#58D600" stroke-width="2.5" stroke-linecap="round"/></svg>FLASH TV</li>
-                    <li class="device-item"><svg width="16px" height="16px" stroke-width="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" style="vertical-align: middle; margin-right: 8px;"><path d="M7 21L17 21" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z" stroke="#ffffff" stroke-width="1.5"></path></svg>2 Dispositivos TV</li>
-                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 8px;"><rect x="2" y="2" width="20" height="20" rx="3" fill="currentColor"/><path d="M12 7v10M7 12h10" stroke="#58D600" stroke-width="2.5" stroke-linecap="round"/></svg>CÁMARA WiFi</li>
+                    <li><svg width="18px" height="18px" stroke-width="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" style="justify-content: center; vertical-align: middle; margin-right: 8px; margin-top: -2px;"><path d="M12 19.51L12.01 19.4989" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 8C8 3.5 16 3.5 22 8" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5 12C9 9 15 9 19 12" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.5 15.5C10.7504 14.1 13.2498 14.0996 15.5001 15.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>WIFI ILIMITADO</li>
+                    <li><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="justify-content: center; vertical-align: middle; margin-right: 4px; margin-top: -1px;"><rect x="2" y="2" width="20" height="20" rx="3" fill="#666"/><path d="M12 7v10M7 12h10" stroke="#58D600" stroke-width="2.5" stroke-linecap="round"/></svg>FLASH TV</li>
+                    <li class="device-item"><svg width="16px" height="16px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" style="vertical-align: middle; margin-right: 8px; margin-top: 0px;"><path d="M7 21L17 21" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z" stroke="#ffffff" stroke-width="1.5"></path></svg>2 Dispositivos TV</li>
+                    <li><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="justify-content: center; vertical-align: middle; margin-right: 4px; margin-top: -1px;"><rect x="2" y="2" width="20" height="20" rx="3" fill="#666"/><path d="M12 7v10M7 12h10" stroke="#58D600" stroke-width="2.5" stroke-linecap="round"/></svg>CÁMARA WiFi</li>
                 </ul>
                 <div style="font-size: 1.5rem; font-weight: 800; margin: 1rem 0; color: var(--flash-green)">280.000 GS</div>
                 <a href="https://wa.me/595973553233?text=Hola,%20quiero%20el%20plan%20Premium%20de%20500MB" class="btn-primary" style="display: block; margin-top: 1rem;">Solicitar</a>
             </div>
         </div>
+    </section>
+
+    <!-- Condiciones del Servicio: Tectonic Stripe Design (Versión Simplificada) -->
+    <section class="conditions-highlight" style="background-color: var(--flash-green); color: var(--obsidian); padding: 5rem 10%; position: relative; margin-top: 5rem; margin-bottom: 5rem; overflow: hidden;">
+        
+        <!-- Tectonic Top Edge -->
+        <div style="position: absolute; top: -49px; left: 0; width: 100%; height: 50px; background: var(--flash-green); clip-path: polygon(100% 0, 0% 100%, 100% 100%); z-index: 1;"></div>
+
+        <div style="max-width: 1100px; margin: 0 auto; position: relative; z-index: 2;">
+            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 4rem;">
+                <!-- Cyber Shield Icon -->
+                <div style="margin-bottom: 1.2rem; background: #000; padding: 1.2rem; border-radius: 50%; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
+                    <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="var(--flash-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <path d="M12 8v4"></path>
+                        <path d="M12 16h.01"></path>
+                    </svg>
+                </div>
+                
+                <h2 style="font-size: 3rem; font-weight: 950; text-transform: uppercase; font-style: italic; line-height: 1; margin: 0; color: #fff; text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 1px 1px 0 #000, -1px -1px 0 #000, 4px 4px 0px #000; letter-spacing: -1px;">
+                    Condiciones:
+                </h2>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3.5rem;">
+                <!-- Item 1 -->
+                <div class="reveal">
+                    <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem;">
+                        <span style="font-family: var(--font-mono); font-weight: 900; font-size: 1.1rem; color: #fff; background: #000; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 4px; box-shadow: 2px 2px 0px #000;">01</span>
+                    </div>
+                    <p style="font-size: 1.1rem; font-weight: 700; line-height: 1.5; color: #000; border-left: 3px solid #000; padding-left: 1.2rem; margin: 0;">
+                        Todos los planes incluyen contrato de permanencia.
+                    </p>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="reveal" style="transition-delay: 0.1s">
+                    <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem;">
+                        <span style="font-family: var(--font-mono); font-weight: 900; font-size: 1.1rem; color: #fff; background: #000; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 4px; box-shadow: 2px 2px 0px #000;">02</span>
+                    </div>
+                    <p style="font-size: 1.1rem; font-weight: 700; line-height: 1.5; color: #000; border-left: 3px solid #000; padding-left: 1.2rem; margin: 0;">
+                        Los planes son prepagos: el monto de la mensualidad se abona el día de la instalación.
+                    </p>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="reveal" style="transition-delay: 0.2s">
+                    <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem;">
+                        <span style="font-family: var(--font-mono); font-weight: 900; font-size: 1.1rem; color: #fff; background: #000; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 4px; box-shadow: 2px 2px 0px #000;">03</span>
+                    </div>
+                    <p style="font-size: 1.1rem; font-weight: 700; line-height: 1.5; color: #000; border-left: 3px solid #000; padding-left: 1.2rem; margin: 0;">
+                        Una vez confirmada la solicitud, la instalación se realiza en un máximo de 72 horas si la zona cuenta con cobertura.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tectonic Bottom Edge -->
+        <div style="position: absolute; bottom: -49px; left: 0; width: 100%; height: 50px; background: var(--flash-green); clip-path: polygon(0 0, 100% 0, 0% 100%); z-index: 1;"></div>
     </section>
 
     <section class="reviews" style="padding: 10rem 10%; background: #050505; position: relative; overflow: hidden;">
