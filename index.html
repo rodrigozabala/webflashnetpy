@@ -370,6 +370,155 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Cybernetic Arrow Animation System */
+        .cyber-arrows-container {
+            position: absolute;
+            top: 50%;
+            left: -1px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .cyber-arrow-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            animation: arrow-pulse 2s ease-in-out infinite;
+        }
+
+        .cyber-arrow-group:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .cyber-arrow-group:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .cyber-arrow {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--flash-green);
+            text-shadow: 
+                0 0 10px var(--flash-green),
+                0 0 20px var(--flash-green),
+                0 0 30px var(--flash-green),
+                0 0 40px rgba(32, 219, 47, 0.5);
+            opacity: 0;
+            animation: arrow-flow 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px var(--flash-green));
+        }
+
+        .cyber-arrow:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .cyber-arrow:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .cyber-arrow:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes arrow-flow {
+            0% {
+                opacity: 0;
+                transform: translateX(-30px) scale(0.8);
+            }
+            20% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+            70% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(30px) scale(0.8);
+            }
+        }
+
+        @keyframes arrow-pulse {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(10px);
+            }
+        }
+
+        /* Cyber particles around button */
+        .cyber-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--flash-green);
+            border-radius: 50%;
+            box-shadow: 
+                0 0 10px var(--flash-green),
+                0 0 20px var(--flash-green);
+            pointer-events: none;
+            animation: particle-orbit 3s linear infinite;
+        }
+
+        .cyber-particle:nth-child(1) {
+            top: -20px;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .cyber-particle:nth-child(2) {
+            top: -20px;
+            right: 20%;
+            animation-delay: 0.5s;
+        }
+
+        .cyber-particle:nth-child(3) {
+            bottom: -20px;
+            left: 30%;
+            animation-delay: 1s;
+        }
+
+        .cyber-particle:nth-child(4) {
+            bottom: -20px;
+            right: 30%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes particle-orbit {
+            0% {
+                opacity: 0;
+                transform: scale(0) translateY(0);
+            }
+            20% {
+                opacity: 1;
+                transform: scale(1) translateY(-5px);
+            }
+            80% {
+                opacity: 1;
+                transform: scale(1) translateY(5px);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) translateY(0);
+            }
+        }
+
+        /* Responsive adjustments for cyber arrows */
+        @media (max-width: 768px) {
+            .cyber-arrows-container {
+                display: none; /* Hide on mobile for cleaner UX */
+            }
+        }
+
         .btn-primary {
             display: inline-flex;
             align-items: center;
@@ -2661,10 +2810,35 @@
             });
             </script>
 
-            <!-- Simplified CTA System -->
-            <div class="hero-cta" style="margin-top: 3rem; display: flex; justify-content: center; width: 100%; max-width: 500px;">
-                <a href="#planes" class="btn-primary" style="padding: 1.2rem 4rem; font-size: 1.1rem; letter-spacing: 1.5px; width: auto; min-width: 250px; text-align: center; justify-content: center;">
+            <!-- Enhanced CTA with Cybernetic Arrows -->
+            <div class="hero-cta" style="margin-top: 3rem; display: flex; justify-content: center; width: 100%; max-width: 500px; position: relative;">
+                <!-- Cybernetic Arrow Indicators -->
+                <div class="cyber-arrows-container">
+                    <div class="cyber-arrow-group">
+                        <span class="cyber-arrow">&gt;</span>
+                        <span class="cyber-arrow">&gt;</span>
+                        <span class="cyber-arrow">&gt;</span>
+                    </div>
+                    <div class="cyber-arrow-group">
+                        <span class="cyber-arrow">&gt;</span>
+                        <span class="cyber-arrow">&gt;</span>
+                        <span class="cyber-arrow">&gt;</span>
+                    </div>
+                    <div class="cyber-arrow-group">
+                        <span class="cyber-arrow">&gt;</span>
+                        <span class="cyber-arrow">&gt;</span>
+                        <span class="cyber-arrow">&gt;</span>
+                    </div>
+                </div>
+                
+                <!-- Main CTA Button -->
+                <a href="#planes" class="btn-primary" style="padding: 1.2rem 4rem; font-size: 1.1rem; letter-spacing: 1.5px; width: auto; min-width: 250px; text-align: center; justify-content: center; position: relative;">
                     Ver Planes
+                    <!-- Cyber Particles -->
+                    <span class="cyber-particle"></span>
+                    <span class="cyber-particle"></span>
+                    <span class="cyber-particle"></span>
+                    <span class="cyber-particle"></span>
                 </a>
             </div>
 
