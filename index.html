@@ -12,6 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_1600/v1769876387/hero-gamer_rhik8a.jpg" imagesrcset="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_640/v1769876387/hero-gamer_rhik8a.jpg 640w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1024/v1769876387/hero-gamer_rhik8a.jpg 1024w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1600/v1769876387/hero-gamer_rhik8a.jpg 1600w" imagesizes="100vw">
+    <link rel="preload" href="https://res.cloudinary.com/dxfbj0irg/video/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876387/infocards-bg_b2nc0z.mp4" as="video" type="video/mp4">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <!-- Leaflet JS -->
@@ -1083,19 +1085,118 @@
         }
 
         .footer-bottom {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 1rem;
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 1rem 0 0;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 1rem;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Ensure exact edge alignment for text */
+        .footer-bottom > div:first-child { text-align: left; padding-left: 1rem; }
+        .footer-bottom > div:last-child  { text-align: right; padding-right: 1rem; }
+
+        /* Desktop: make footer full-bleed and items flush to viewport edges */
+        @media (min-width: 900px) {
+            .footer-bottom {
+                position: relative;
+                left: 50%;
+                right: 50%;
+                margin-left: -50vw;
+                margin-right: -50vw;
+                width: 100vw;
+                padding: 1rem 0 0;
+            }
+            /* remove inner padding so text sits flush to edges */
+            .footer-bottom > div:first-child { padding-left: 0; }
+            .footer-bottom > div:last-child  { padding-right: 0; }
+        }
+
+        /* Mobile: stack and center */
+        @media (max-width: 600px) {
+            .footer-bottom {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+                padding: 1rem;
+            }
+            .footer-bottom > div { text-align: center; padding: 0; }
         }
 
         .contact-info {
             font-family: var(--font-mono);
             font-size: 0.9rem;
             color: var(--pure-white);
+        }
+
+        /* WhatsApp Support CTA */
+        .whatsapp-cta-container {
+            display: flex;
+            align-items: center;
+            gap: 1.6rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+            justify-content: center; /* center both elements visually */
+        }
+
+        .support-status-label {
+            display: inline-flex;
+            align-items: center; 
+            gap: 0.75rem;
+            font-family: var(--font-mono);
+            font-size: 1rem; /* larger for visual prominence */
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--flash-green);
+            background: rgba(32,219,47,0.04);
+            padding: 0.6rem 0.9rem;
+            border-radius: 999px;
+        }
+
+        .support-status-label .online-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--flash-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(32,219,47,0.28);
+        }
+
+        .pedir-soporte-btn {
+            display: inline-block;
+            background: var(--flash-green);
+            color: #000;
+            font-family: var(--font-mono);
+            font-weight: 800;
+            font-size: 1.05rem; /* increased size for prominence */
+            padding: 0.85rem 1.15rem; /* larger touch target */
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: 0 10px 28px rgba(32,219,47,0.18);
+            transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+            border: 0;
+        }
+
+        .pedir-soporte-btn:hover,
+        .pedir-soporte-btn:focus {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 18px 34px rgba(32,219,47,0.22);
+            outline: none;
+        }
+
+        .pedir-soporte-btn:focus-visible {
+            outline: 3px solid rgba(32,219,47,0.18);
+            border-radius: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .whatsapp-cta-container { width: 100%; justify-content: center; gap: 0.8rem; }
+            .pedir-soporte-btn { width: auto; font-size: 1rem; padding: 0.7rem 1rem; }
+            .support-status-label { font-size: 0.95rem; padding: 0.5rem 0.7rem; }
         }
 
         .contact-info strong {
@@ -1614,9 +1715,21 @@
             .hamburger-menu {
                 display: flex;
                 position: absolute;
-                left: 50%;
+                right: 10px;
+                left: auto;
                 top: 50%;
-                transform: translate(-55%, -50%);
+                transform: translate(0, -50%);
+                z-index: 101; /* ensure it's above nav */
+            }
+
+            /* Hide green topbar on small screens and keep nav (logo + hamburger) */
+            .topbar {
+                display: none;
+            }
+
+            /* Hide only the header WhatsApp CTA ("Contáctanos") on mobile */
+            nav > .btn-whatsapp {
+                display: none;
             }
 
             .nav-links {
@@ -2192,7 +2305,7 @@
 
     <nav>
         <div class="logo-container">
-            <img src="img/logo-flashnet.png" alt="FlashNet" style="height: 85px; width: auto; object-fit: contain;">
+            <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876396/logo-flashnet_ynwurx.png" alt="FlashNet" style="height: 85px; width: auto; object-fit: contain;" loading="eager" decoding="async" fetchpriority="high">
         </div>
         
         <!-- Hamburger Menu Button (Mobile Only) -->
@@ -2851,22 +2964,22 @@
         </div>
         <div class="hero-visual">
             <picture>
-                <img src="img/hero-gamer.png" class="active" alt="Gamer High Speed Internet">
+                <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876387/hero-gamer_rhik8a.jpg" srcset="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_640/v1769876387/hero-gamer_rhik8a.jpg 640w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1024/v1769876387/hero-gamer_rhik8a.jpg 1024w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1600/v1769876387/hero-gamer_rhik8a.jpg 1600w" sizes="100vw" class="active" alt="Gamer High Speed Internet" loading="eager" decoding="async" fetchpriority="high">
             </picture>
             <picture>
-                <img src="img/hero-office.png" alt="Home Office Stable Connection">
+                <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876391/hero-office_mztwo6.jpg" srcset="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_640/v1769876391/hero-office_mztwo6.jpg 640w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1024/v1769876391/hero-office_mztwo6.jpg 1024w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1600/v1769876391/hero-office_mztwo6.jpg 1600w" sizes="100vw" alt="Home Office Stable Connection" loading="lazy" decoding="async">
             </picture>
             <picture>
-                <img src="img/hero-streaming-gen.png" alt="4K Streaming Experience">
+                <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876391/hero-streaming-gen_avfsga.jpg" srcset="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_640/v1769876391/hero-streaming-gen_avfsga.jpg 640w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1024/v1769876391/hero-streaming-gen_avfsga.jpg 1024w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1600/v1769876391/hero-streaming-gen_avfsga.jpg 1600w" sizes="100vw" alt="4K Streaming Experience" loading="lazy" decoding="async">
             </picture>
             <picture>
-                <img src="img/hero-home-service.png" alt="Home Connectivity">
+                <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876388/hero-home-service_dehcez.png" srcset="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_640/v1769876388/hero-home-service_dehcez.png 640w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1024/v1769876388/hero-home-service_dehcez.png 1024w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1600/v1769876388/hero-home-service_dehcez.png 1600w" sizes="100vw" alt="Home Connectivity" loading="lazy" decoding="async">
             </picture>
             <picture>
-                <img src="img/hero-cheetah.png" alt="Rápido y Estable">
+                <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876387/hero-cheetah_bzfndj.jpg" srcset="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_640/v1769876387/hero-cheetah_bzfndj.jpg 640w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1024/v1769876387/hero-cheetah_bzfndj.jpg 1024w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1600/v1769876387/hero-cheetah_bzfndj.jpg 1600w" sizes="100vw" alt="Rápido y Estable" loading="lazy" decoding="async">
             </picture>
             <picture>
-                <img src="img/reliable.png" alt="Conexión Confiable">
+                <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876397/reliable_oopouc.jpg" srcset="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_640/v1769876397/reliable_oopouc.jpg 640w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1024/v1769876397/reliable_oopouc.jpg 1024w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1600/v1769876397/reliable_oopouc.jpg 1600w" sizes="100vw" alt="Conexión Confiable" loading="lazy" decoding="async">
             </picture>
         </div>
         </div>
@@ -2874,8 +2987,8 @@
 
     <section class="services" style="position: relative; overflow: hidden;">
         <div class="video-bg-container">
-            <video autoplay loop muted playsinline>
-                <source src="bg/infocards-bg.mp4" type="video/mp4">
+            <video autoplay loop muted playsinline preload="metadata" poster="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_auto/v1769876387/infocards-bg_b2nc0z.jpg">
+                <source src="https://res.cloudinary.com/dxfbj0irg/video/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876387/infocards-bg_b2nc0z.mp4" type="video/mp4">
             </video>
             <div class="video-bg-overlay"></div>
         </div>
@@ -2929,8 +3042,8 @@
                     </a>
                </div>
                <div class="service-visual" style="flex: 1; position: relative; min-height: 400px;">
-                    <img src="img/gamer.png" alt="Gamer Setup Flashnet" style="width: 85%; border: 4px solid #000; transform: rotate(-3deg); box-shadow: 15px 15px 0px rgba(0,0,0,1); position: relative; z-index: 2;">
-                    <img src="img/remote.png" alt="Remote Work" style="width: 55%; position: absolute; bottom: -10%; right: 0; border: 4px solid #000; transform: rotate(5deg); box-shadow: 15px 15px 0px #fff; z-index: 3;">
+                    <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876384/gamer_dgspao.jpg" srcset="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_320/v1769876384/gamer_dgspao.jpg 320w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_640/v1769876384/gamer_dgspao.jpg 640w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1024/v1769876384/gamer_dgspao.jpg 1024w" sizes="(max-width: 600px) 100vw, 50vw" alt="Gamer Setup Flashnet" style="width: 85%; border: 4px solid #000; transform: rotate(-3deg); box-shadow: 15px 15px 0px rgba(0,0,0,1); position: relative; z-index: 2;" loading="lazy" decoding="async">
+                    <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876400/remote_w7hjhs.jpg" srcset="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_320/v1769876400/remote_w7hjhs.jpg 320w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_640/v1769876400/remote_w7hjhs.jpg 640w" sizes="(max-width: 600px) 60vw, 30vw" alt="Remote Work" style="width: 55%; position: absolute; bottom: -10%; right: 0; border: 4px solid #000; transform: rotate(5deg); box-shadow: 15px 15px 0px #fff; z-index: 3;" loading="lazy" decoding="async">
                     <div style="position: absolute; top: -10%; left: -10%; width: 50%; height: 50%; background: #fff; opacity: 0.2; z-index: 1; clip-path: polygon(0 0, 100% 0, 0 100%);"></div>
                </div>
             </div>
@@ -2956,7 +3069,7 @@
                     </a>
                </div>
                <div class="service-visual" style="flex: 1; position: relative;">
-                    <img src="img/football.png" alt="Familia viendo TV Flashnet" style="width: 100%; border: 4px solid #000; transform: rotate(2deg); box-shadow: -15px 15px 0px rgba(0,0,0,1);">
+                    <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876384/football_v59ksh.jpg" srcset="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_640/v1769876384/football_v59ksh.jpg 640w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1024/v1769876384/football_v59ksh.jpg 1024w" sizes="(max-width: 600px) 100vw, 50vw" alt="Familia viendo TV Flashnet" style="width: 100%; border: 4px solid #000; transform: rotate(2deg); box-shadow: -15px 15px 0px rgba(0,0,0,1);" loading="lazy" decoding="async">
                     <div style="position: absolute; width: 100px; height: 100px; background: #000; right: -20px; top: -20px; z-index: -1; clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);"></div>
                </div>
             </div>
@@ -3051,7 +3164,7 @@
                 <!-- Condition Item 1 -->
                 <div style="background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%); padding: 2.5rem; border-radius: 24px; border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(20px); transition: all 0.4s ease; height: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;">
                     <div style="width: 50px; height: 50px; background: rgba(32, 219, 47, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--flash-green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--flash-green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                     </div>
                     <p style="color: #eee; font-size: 1.05rem; margin: 0; line-height: 1.5; font-weight: 500;">Todos los planes incluyen contrato de permanencia.</p>
                 </div>
@@ -3159,7 +3272,7 @@
                     0 0 20px rgba(0,224,31,0.35),
                     0 0 40px rgba(0,224,31,0.15),
                     0 8px 20px rgba(0,0,0,0.5),
-                    inset 0 0 12px rgba(0,224,31,0.1) !important;
+                    inset 0 0 12px rgba(255,255,255,0.2) !important;
                 backdrop-filter: blur(12px) !important;
                 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
                 z-index: 20 !important;
@@ -3197,8 +3310,8 @@
 
     <section class="commitment" style="padding: 10rem 10%; border-top: 1px solid var(--glass); position: relative; overflow: hidden;">
         <div class="video-bg-container">
-            <video autoplay loop muted playsinline style="filter: brightness(1);">
-                <source src="bg/community-bg.mp4" type="video/mp4">
+            <video autoplay loop muted playsinline style="filter: brightness(1);" preload="metadata" poster="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_auto/v1769876383/community-bg_g1adry.jpg">
+                <source src="https://res.cloudinary.com/dxfbj0irg/video/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876383/community-bg_g1adry.mp4" type="video/mp4">
             </video>
         </div>
         <div style="text-align: center; margin-bottom: 5rem; position: relative; z-index: 2;">
@@ -3273,7 +3386,7 @@
             <div class="community-slider">
                 <!-- Group 1 -->
                 <div class="community-card">
-                    <img src="img/community/comisaría-8va-san estanislao.jpg" alt="Comisaría de San Estanislao">
+                    <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876380/comisar%C3%ADa-8va-san_estanislao_qkmdnc.jpg" alt="Comisaría de San Estanislao" loading="lazy" decoding="async">
                     <div class="community-info">
                         <h4 style="font-size: 0.9rem; text-transform: uppercase; font-family: var(--font-mono); color: var(--flash-green); font-weight: 700; letter-spacing: 1px;">Comisaría 8va</h4>
                         <p style="font-size: 0.7rem; color: #cccccc; margin-top: 0.4rem; letter-spacing: 2px;">SANTANÍ</p>
@@ -3281,7 +3394,7 @@
                 </div>
 
                 <div class="community-card">
-                    <img src="img/community/bomberosazules.jpg" alt="Bomberos Azules Santaní">
+                    <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876380/bomberosazules_bqosze.jpg" alt="Bomberos Azules Santaní" loading="lazy" decoding="async">
                     <div class="community-info">
                         <h4 style="font-size: 0.9rem; text-transform: uppercase; font-family: var(--font-mono); color: var(--flash-green); font-weight: 700; letter-spacing: 1px;">Bomberos Azules</h4>
                         <p style="font-size: 0.7rem; color: #cccccc; margin-top: 0.4rem; letter-spacing: 2px;">SANTANÍ</p>
@@ -3289,7 +3402,7 @@
                 </div>
 
                 <div class="community-card">
-                    <img src="img/community/bomberosamarillos.jpg" alt="Bomberos Amarillos Santaní">
+                    <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876379/bomberosamarillos_o3qp9s.jpg" alt="Bomberos Amarillos Santaní" loading="lazy" decoding="async">
                     <div class="community-info">
                         <h4 style="font-size: 0.9rem; text-transform: uppercase; font-family: var(--font-mono); color: var(--flash-green); font-weight: 700; letter-spacing: 1px;">Bomberos Amarillos</h4>
                         <p style="font-size: 0.7rem; color: #cccccc; margin-top: 0.4rem; letter-spacing: 2px;">SANTANÍ</p>
@@ -3297,7 +3410,7 @@
                 </div>
 
                 <div class="community-card">
-                    <img src="img/community/cruzrojafilialsantani.jpg" alt="Cruz Roja Paraguaya">
+                    <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876380/cruzrojafilialsantani_dtr8b0.jpg" alt="Cruz Roja Paraguaya" loading="lazy" decoding="async">
                     <div class="community-info">
                         <h4 style="font-size: 0.9rem; text-transform: uppercase; font-family: var(--font-mono); color: var(--flash-green); font-weight: 700; letter-spacing: 1px;">Cruz Roja</h4>
                         <p style="font-size: 0.7rem; color: #cccccc; margin-top: 0.4rem; letter-spacing: 2px;">FILIAL SANTANÍ</p>
@@ -3306,15 +3419,14 @@
 
                 <!-- Duplicate for seamless loop -->
                 <div class="community-card">
-                    <img src="img/community/comisaría-8va-san estanislao.jpg" alt="Comisaría de San Estanislao">
-                    <div class="community-info">
+                    <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876380/comisar%C3%ADa-8va-san_estanislao_qkmdnc.jpg" alt="Comisaría de San Estanislao" loading="lazy" decoding="async">
                         <h4 style="font-size: 0.9rem; text-transform: uppercase; font-family: var(--font-mono); color: var(--flash-green); font-weight: 700; letter-spacing: 1px;">Comisaría 8va</h4>
                         <p style="font-size: 0.7rem; color: #cccccc; margin-top: 0.4rem; letter-spacing: 2px;">SANTANÍ</p>
                     </div>
                 </div>
 
                 <div class="community-card">
-                    <img src="img/community/bomberosazules.jpg" alt="Bomberos Azules Santaní">
+                    <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876380/bomberosazules_bqosze.jpg" alt="Bomberos Azules Santaní" loading="lazy" decoding="async">
                     <div class="community-info">
                         <h4 style="font-size: 0.9rem; text-transform: uppercase; font-family: var(--font-mono); color: var(--flash-green); font-weight: 700; letter-spacing: 1px;">Bomberos Azules</h4>
                         <p style="font-size: 0.7rem; color: #cccccc; margin-top: 0.4rem; letter-spacing: 2px;">SANTANÍ</p>
@@ -3322,7 +3434,7 @@
                 </div>
 
                 <div class="community-card">
-                    <img src="img/community/bomberosamarillos.jpg" alt="Bomberos Amarillos Santaní">
+                    <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876379/bomberosamarillos_o3qp9s.jpg" alt="Bomberos Amarillos Santaní" loading="lazy" decoding="async">
                     <div class="community-info">
                         <h4 style="font-size: 0.9rem; text-transform: uppercase; font-family: var(--font-mono); color: var(--flash-green); font-weight: 700; letter-spacing: 1px;">Bomberos Amarillos</h4>
                         <p style="font-size: 0.7rem; color: #cccccc; margin-top: 0.4rem; letter-spacing: 2px;">SANTANÍ</p>
@@ -3330,7 +3442,7 @@
                 </div>
 
                 <div class="community-card">
-                    <img src="img/community/cruzrojafilialsantani.jpg" alt="Cruz Roja Paraguaya">
+                    <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876380/cruzrojafilialsantani_dtr8b0.jpg" alt="Cruz Roja Paraguaya" loading="lazy" decoding="async">
                     <div class="community-info">
                         <h4 style="font-size: 0.9rem; text-transform: uppercase; font-family: var(--font-mono); color: var(--flash-green); font-weight: 700; letter-spacing: 1px;">Cruz Roja</h4>
                         <p style="font-size: 0.7rem; color: #cccccc; margin-top: 0.4rem; letter-spacing: 2px;">FILIAL SANTANÍ</p>
@@ -3543,7 +3655,7 @@
             .flyer-card:hover {
                 transform: rotateX(5deg);
                 border-color: var(--flash-green);
-                box-shadow: 0 15px 50px rgba(0,0,0,0.8), 0 0 40px rgba(0, 224, 31, 0.25);
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 224, 31, 0.1);
                 background: linear-gradient(135deg, rgba(30, 30, 30, 0.9) 0%, rgba(10, 10, 10, 1) 100%);
             }
 
@@ -3580,110 +3692,6 @@
             @media (max-width: 768px) {
                 .support-cards-row { grid-template-columns: 1fr; }
                 .support-hero-unified { padding: 6rem 5%; }
-            }
-            /* WhatsApp CTA Button Styled */
-            .whatsapp-cta-container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 1.5rem;
-                margin-top: 6rem;
-                padding-bottom: 5rem;
-                position: relative;
-                z-index: 20;
-            }
-
-            .support-status-label {
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-                font-family: var(--font-mono);
-                color: var(--flash-green);
-                font-size: 0.9rem;
-                font-weight: 800;
-                letter-spacing: 4px;
-                text-transform: uppercase;
-                background: rgba(0, 0, 0, 0.8);
-                padding: 0.6rem 2rem;
-                border: 1px solid rgba(88, 214, 0, 0.3);
-                border-left: 4px solid var(--flash-green);
-                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-                animation: status-float 3s infinite alternate ease-in-out;
-            }
-
-            @keyframes status-float {
-                from { transform: translateY(0); }
-                to { transform: translateY(-8px); }
-            }
-
-            .pedir-soporte-btn {
-                position: relative;
-                display: inline-block;
-                background: transparent;
-                color: var(--flash-green);
-                text-decoration: none;
-                padding: 1.5rem 4rem;
-                font-size: 1.8rem;
-                font-weight: 950;
-                font-style: italic;
-                text-transform: uppercase;
-                border: 2px solid var(--flash-green);
-                transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-                box-shadow: 0 0 15px rgba(88, 214, 0, 0.2);
-                letter-spacing: 1px;
-                clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
-            }
-
-            .pedir-soporte-btn:hover {
-                background: var(--flash-green);
-                color: #000;
-                box-shadow: 0 0 40px rgba(88, 214, 0, 0.6);
-                transform: scale(1.05);
-            }
-
-            .pedir-soporte-btn::after {
-                content: '';
-                position: absolute;
-                top: -2px;
-                left: -2px;
-                right: -2px;
-                bottom: -2px;
-                background: var(--flash-green);
-                z-index: -1;
-                transform: scaleX(0);
-                transform-origin: right;
-                transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            }
-
-            .pedir-soporte-btn:hover::after {
-                transform: scaleX(1);
-                transform-origin: left;
-            }
-
-            .online-dot {
-                width: 10px;
-                height: 10px;
-                background: #00ff00;
-                border-radius: 50%;
-                box-shadow: 0 0 15px #00ff00;
-                animation: pulse-dot-premium 1.5s infinite;
-            }
-
-            @keyframes pulse-dot-premium {
-                0% { opacity: 0.4; transform: scale(0.8); }
-                50% { opacity: 1; transform: scale(1.2); }
-                100% { opacity: 0.4; transform: scale(0.8); }
-            }
-
-            @media (max-width: 768px) {
-                .pedir-soporte-btn {
-                    padding: 1.2rem 2.5rem;
-                    font-size: 1.4rem;
-                    box-shadow: 8px 8px 0px var(--flash-green);
-                }
-                .pedir-soporte-btn:hover {
-                    box-shadow: 12px 12px 0px #fff;
-                }
             }
         </style>
 
@@ -3737,13 +3745,13 @@
             </div>
             <!-- Redesigned Support CTA System -->
             <div class="whatsapp-cta-container">
-                <div class="support-status-label reveal">
-                    <div class="online-dot"></div>
-                    <span>SOPORTE DISPONIBLE</span>
+                <div class="support-status-label reveal" role="status" aria-live="polite" aria-label="Soporte disponible">
+                    <div class="online-dot" aria-hidden="true"></div>
+                    <span>Soporte disponible</span>
                 </div>
                 
-                <a href="https://wa.me/595973553233?text=Hola,%20necesito%20soporte%20técnico" class="pedir-soporte-btn reveal" target="_blank" style="transition-delay: 0.2s">
-                    PEDIR SOPORTE
+                <a href="https://wa.me/595973553233?text=Hola,%20necesito%20soporte%20t%C3%A9cnico" class="pedir-soporte-btn reveal" target="_blank" rel="noopener noreferrer" aria-label="Pedir soporte por WhatsApp">
+                    Pedir soporte
                 </a>
             </div>
         </div>
@@ -3801,7 +3809,7 @@
                    </div>
                </div>
                <div class="service-visual" style="flex: 1; position: relative;">
-                    <img src="img/familia.png" alt="Seguridad Digital" style="width: 100%; border: 4px solid #000; transform: rotate(-1deg); box-shadow: 15px 15px 0px rgba(0,0,0,1);">
+                    <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876384/familia_twydom.jpg" srcset="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_640/v1769876384/familia_twydom.jpg 640w, https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,w_1024/v1769876384/familia_twydom.jpg 1024w" sizes="(max-width:600px) 100vw, 50vw" alt="Seguridad Digital" style="width: 100%; border: 4px solid #000; transform: rotate(-1deg); box-shadow: 15px 15px 0px rgba(0,0,0,1);" loading="lazy" decoding="async">
                     <div style="position: absolute; width: 120px; height: 120px; background: #fff; left: -30px; bottom: -30px; z-index: -1; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); opacity: 0.3;"></div>
                </div>
             </div>
@@ -3887,7 +3895,7 @@
                 
                 // Add tooltip on hover
                 marker.bindTooltip(`
-                    <h4 style="font-size: 1.3rem; color: #fff; margin: 0; font-weight: 800; letter-spacing: -0.5px;">FlashNet<span style="color: var(--flash-green);">py</span></h4>
+                    <h4 style="font-size: 1.3rem; color: #fff; margin: 0; font-weight: 800; letter-spacing: 0.5px;">FlashNet<span style="color: var(--flash-green);">py</span></h4>
                     <div style="font-family: var(--font-mono); color: #888; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase;">oficina principal</div>
                 `, {
                     permanent: false,
@@ -3906,7 +3914,7 @@
                             backdrop-filter: blur(20px);
                             border: 1px solid rgba(88, 214, 0, 0.3) !important;
                             border-radius: 12px !important;
-                            box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important;
+                            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
                             padding: 0.8rem 1.2rem !important;
                         }
                         .custom-map-tooltip::before {
@@ -3970,7 +3978,7 @@
                             <div>
                                 <h4 style="margin: 0; font-size: 1.2rem; color: #fff;">${review.name}</h4>
                             </div>
-                            <svg style="margin-left: auto; opacity: 0.2; color: var(--flash-green);" width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 7.55228 14.017 7V5C14.017 4.44772 14.4647 4 15.017 4H21.017C21.5693 4 22.017 4.44772 22.017 5V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM3.017 21L3.017 18C3.017 16.8954 3.91243 16 5.017 16H8.017C8.56928 16 9.017 15.5523 9.017 15V9C9.017 8.44772 8.56928 8 8.017 8H4.017C3.46472 8 3.017 7.55228 3.017 7V5C3.017 4.44772 3.46472 4 4.017 4H10.017C10.5693 4 11.017 4.44772 11.017 5V15C11.017 18.3137 8.33072 21 5.017 21H3.017Z"/></svg>
+                            <svg style="margin-left: auto; opacity: 0.2; color: var(--flash-green);" width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         </div>
                         <p style="color: #ccc; font-size: 1.1rem; line-height: 1.8; font-style: italic; margin: 0;">"${review.text}"</p>
                     </div>
@@ -4167,7 +4175,7 @@
                     acc += ca;
                     if (d <= acc + sw) return { x: l + w - r - (d - acc) / sw * sw, y: tE + h };
                     acc += sw;
-                    if (d <= acc + ca) return gCP(l + r, tE + h - r, r, Math.PI / 2, Math.PI / 2, (d - acc) / ca);
+                    if (d <= acc + ca) return gCP(l + r, tE + h - r, r, Math.PI, Math.PI / 2, (d - acc) / ca);
                     acc += ca;
                     if (d <= acc + sh) return { x: l, y: tE + h - r - (d - acc) / sh * sh };
                     acc += sh;
@@ -4430,9 +4438,6 @@
                 box-shadow: 0 0 15px rgba(88, 214, 0, 0.2);
                 letter-spacing: 2px;
                 clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
-                cursor: pointer;
-                z-index: 1;
-                overflow: hidden;
             }
 
             .submit-btn:hover {
@@ -4638,158 +4643,10 @@
                     justify-content: center;
                 }
             }
-
+            
             @media (max-width: 768px) {
-                .form-row {
-                    grid-template-columns: 1fr;
-                }
-
-                .contact-form-card {
-                    padding: 2rem;
-                }
-
-                .footer-links {
-                    flex-direction: column;
-                    gap: 1rem;
-                }
-            }
-        </style>
-
-        <style>
-            .contact-hero-section {
-                position: relative;
-                z-index: 2;
-                width: 100%;
-                padding: 8rem 0;
-            }
-
-            .contact-hero-grid {
-                display: grid;
-                grid-template-columns: 45% 55%;
-                min-height: 600px;
-            }
-
-            /* LEFT: Image */
-            .contact-hero-image {
-                position: relative;
-                background: linear-gradient(135deg, rgba(0, 224, 31, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%),
-                            url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80');
-                background-size: cover;
-                background-position: center;
-                overflow: hidden;
-            }
-
-            .image-overlay {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(135deg, rgba(0, 224, 31, 0.15) 0%, rgba(0, 0, 0, 0.7) 100%);
-                backdrop-filter: blur(1px);
-            }
-
-            /* RIGHT: Content */
-            .contact-hero-content {
-                background: #000;
-                padding: 5rem 8% 5rem 6%;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
-
-            .hero-label {
-                font-size: 0.85rem;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 3px;
-                color: var(--flash-green);
-                margin-bottom: 1.5rem;
-                font-family: var(--font-mono);
-            }
-
-            .hero-title {
-                font-size: clamp(2.5rem, 4vw, 3.5rem);
-                font-weight: 900;
-                line-height: 1.1;
-                color: #fff;
-                margin-bottom: 1.5rem;
-            }
-
-            .highlight-text {
-                color: var(--flash-green);
-                font-style: italic;
-            }
-
-            .hero-description {
-                font-size: 1.1rem;
-                color: #aaa;
-                line-height: 1.7;
-                margin-bottom: 3rem;
-                max-width: 500px;
-            }
-
-            .hero-info-grid {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .hero-info-item {
-                display: flex;
-                gap: 1.5rem;
-                align-items: flex-start;
-            }
-
-            .hero-icon {
-                color: var(--flash-green);
-                flex-shrink: 0;
-                margin-top: 0.2rem;
-            }
-
-            .hero-info-label {
-                font-size: 0.75rem;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 1.5px;
-                color: var(--flash-green);
-                margin-bottom: 0.5rem;
-                font-family: var(--font-mono);
-            }
-
-            .hero-info-value {
-                font-size: 1rem;
-                color: #ccc;
-                line-height: 1.6;
-            }
-
-            /* Responsive */
-            @media (max-width: 1024px) {
-                .contact-hero-grid {
-                    grid-template-columns: 1fr;
-                }
-
-                .contact-hero-image {
-                    min-height: 400px;
-                }
-
-                .contact-hero-content {
-                    padding: 4rem 5%;
-                }
-            }
-
-            @media (max-width: 768px) {
-                .contact-hero-section {
-                    padding: 4rem 0;
-                }
-
-                .contact-hero-image {
-                    min-height: 300px;
-                }
-
-                .hero-info-grid {
-                    gap: 1.5rem;
-                }
+                .support-cards-row { grid-template-columns: 1fr; }
+                .support-hero-unified { padding: 6rem 5%; }
             }
         </style>
 
@@ -4846,7 +4703,7 @@
                         </div>
                     </div>
                     
-                    <img src="img/local.png" alt="FlashNet Local">
+                    <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876395/local_btqurf.png" alt="FlashNet Local" loading="lazy" decoding="async">
                 </div>
             </div>
 
@@ -4869,8 +4726,8 @@
             <div class="footer-content">
             <!-- Columna izquierda: Marca -->
             <div class="footer-brand">
-                <div class="logo-container" style="display: flex; flex-direction: column; gap: 0; margin-top: -18px;">
-                    <img src="img/logo-flashnet.png" alt="FlashNet" style="height: 120px; width: auto; object-fit: contain;">
+                <div class="logo-container" style="display: flex; flex-direction: column; gap: 0; margin: 0;">
+                    <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876396/logo-flashnet_ynwurx.png" alt="FlashNet" style="height: 120px; width: auto; object-fit: contain;" loading="eager" decoding="async" fetchpriority="high">
                     <span style="color: #ccc; font-family: 'Outfit', sans-serif; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.5px; margin-left: 40px; font-style: italic; margin-top: -24px;">El mejor internet de la región.</span>
                 </div>
             <div>
@@ -4898,8 +4755,7 @@
                         </a>
                         <a href="https://www.instagram.com/flashnetpy/" target="_blank" aria-label="Instagram">
                             <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12.001 9C10.3436 9 9.00098 10.3431 9.00098 12C9.00098 13.6573 10.3441 15 12.001 15C13.6583 15 15.001 13.6569 15.001 12C15.001 10.3427 13.6579 9 12.001 9ZM12.001 7C14.7614 7 17.001 9.2371 17.001 12C17.001 14.7605 14.7639 17 12.001 17C9.24051 17 7.00098 14.7629 7.00098 12C7.00098 9.23953 9.23808 7 12.001 7ZM18.501 6.74915C18.501 7.43926 17.9402 7.99917 17.251 7.99917C16.5609 7.99917 16.001 7.4384 16.001 6.74915C16.001 6.0599 16.5617 5.5 17.251 5.5C17.9393 5.49913 18.501 6.0599 18.501 6.74915ZM12.001 4C9.5265 4 9.12318 4.00655 7.97227 4.0578C7.18815 4.09461 6.66253 4.20007 6.17416 4.38967C5.74016 4.55799 5.42709 4.75898 5.09352 5.09255C4.75867 5.4274 4.55804 5.73963 4.3904 6.17383C4.20036 6.66332 4.09493 7.18811 4.05878 7.97115C4.00703 9.0752 4.00098 9.46105 4.00098 12C4.00098 14.4745 4.00753 14.8778 4.05877 16.0286C4.0956 16.8124 4.2012 17.3388 4.39034 17.826C4.5591 18.2606 4.7605 18.5744 5.09246 18.9064C5.42863 19.2421 5.74179 19.4434 6.17187 19.6094C6.66619 19.8005 7.19148 19.9061 7.97212 19.9422C9.07618 19.9939 9.46203 20 12.001 20C14.4755 20 14.8788 19.9934 16.0296 19.9422C16.8117 19.9055 17.3385 19.7996 17.827 19.6106C18.2604 19.4423 18.5752 19.2402 18.9074 18.9085C19.2436 18.5718 19.4445 18.2594 19.6107 17.8283C19.8013 17.3358 19.9071 16.8098 19.9432 16.0289C19.9949 14.9248 20.001 14.5389 20.001 12C20.001 9.52552 19.9944 9.12221 19.9432 7.97137C19.9064 7.18906 19.8005 6.66149 19.6113 6.17318C19.4434 5.74038 19.2417 5.42635 18.9084 5.09255C18.573 4.75715 18.2616 4.55693 17.8271 4.38942C17.338 4.19954 16.8124 4.09396 16.0298 4.05781C14.9258 4.00605 14.5399 4 12.001 4Z"></path>
-                            </svg>
+                                <path d="M12.001 9C10.3436 9 9.00098 10.3431 9.00098 12C9.00098 13.6573 10.3441 15 12.001 15C13.6583 15 15.001 13.6569 15.001 12C15.001 10.3427 13.6579 9 12.001 9ZM12.001 7C14.7614 7 17.001 9.2371 17.001 12C17.001 14.7605 14.7639 17 12.001 17C9.24051 17 7.00098 14.7629 7.00098 12C7.00098 9.23953 9.23808 7 12.001 7ZM18.501 6.74915C18.501 7.43926 17.9402 7.99917 17.251 7.99917C16.5609 7.99917 16.001 7.4384 16.001 6.74915C16.001 6.0599 16.5617 5.5 17.251 5.5C17.9393 5.49913 18.501 6.0599 18.501 6.74915ZM12.001 4C9.5265 4 9.12318 4.00655 7.97227 4.0578C7.18815 4.09461 6.66253 4.20007 6.17416 4.38967C5.74016 4.55799 5.42709 4.75898 5.09352 5.09255C4.75867 5.4274 4.55804 5.73963 4.3904 6.17383C4.20036 6.66332 4.09493 7.18811 4.05878 7.97115C4.00703 9.0752 4.00098 9.46105 4.00098 12C4.00098 14.4745 4.00753 14.8778 4.05877 16.0286C4.0956 16.8124 4.2012 17.3388 4.39034 17.826C4.5591 18.2606 4.7605 18.5744 5.09246 18.9064C5.42863 19.2421 5.74179 19.4434 6.17187 19.6094C6.66619 19.8005 7.19148 19.9061 7.97212 19.9422C9.07618 19.9939 9.46203 20 12.001 20C14.4755 20 14.8788 19.9934 16.0296 19.9422C16.8117 19.9055 17.3385 19.7996 17.827 19.6106C18.2604 19.4423 18.5752 19.2402 18.9074 18.9085C19.2436 18.5718 19.4445 18.2594 19.6107 17.8283C19.8013 17.3358 19.9071 16.8098 19.9432 16.0289C19.9949 14.9248 20.001 14.5389 20.001 12C20.001 9.52552 19.9944 9.12221 19.9432 7.97137C19.9064 7.18906 19.8005 6.66149 19.6113 6.17318C19.4434 5.74038 19.2417 5.42635 18.9084 5.09255C18.573 4.75715 18.2616 4.55693 17.8271 4.38942C17.338 4.19954 16.8124 4.09396 16.0298 4.05781C14.9258 4.00605 14.5399 4 12.001 4ZM12.001 2C14.7176 2 15.0568 2.01 16.1235 2.06C17.1876 2.10917 17.9135 2.2775 18.551 2.525C19.2101 2.77917 19.7668 3.1225 20.3226 3.67833C20.8776 4.23417 21.221 4.7925 21.476 5.45C21.7226 6.08667 21.891 6.81333 21.941 7.8775C21.9885 8.94417 22.001 9.28333 22.001 12C22.001 14.7167 21.991 15.0558 21.941 16.1225C21.8918 17.1867 21.7226 17.9125 21.476 18.55C21.2218 19.2092 20.8776 19.7658 20.3226 20.3217C19.7668 20.8767 19.2076 21.22 18.551 21.475C17.9135 21.7217 17.1876 21.89 16.1235 21.94C15.0568 21.9875 14.7176 22 12.001 22C9.28431 22 8.94514 21.99 7.87848 21.94C6.81431 21.8908 6.08931 21.7217 5.45098 21.475C4.79264 21.2208 4.23514 20.8767 3.67931 20.3217C3.12348 19.7658 2.78098 19.2067 2.52598 18.55C2.27848 17.9125 2.11098 17.1867 2.06098 16.1225C2.01348 15.0558 2.00098 14.7167 2.00098 12C2.00098 9.28333 2.01098 8.94417 2.06098 7.8775C2.11014 6.8125 2.27848 6.0875 2.52598 5.45C2.78014 4.79167 3.12348 4.23417 3.67931 3.67833C4.23514 3.1225 4.79348 2.78 5.45098 2.525C6.08848 2.2775 6.81348 2.11 7.87848 2.06C8.94514 2.0125 9.28431 2 12.001 2Z"></path></svg>
                         </a>
                         <a href="https://www.tiktok.com/@flashnetpy/video/7446866267845233926" target="_blank" aria-label="TikTok">
                             <svg viewBox="0 0 24 24" fill="currentColor">
@@ -4908,16 +4764,14 @@
                         </a>
                     </div>
                 </div>
-            </div>
             </div>    
-            <div class="footer-bottom">
+            <div class="footer-bottom" style="grid-column: span 3; text-align: center; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.2rem;">
                 <div style="color: #aaaaaa; font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase;">
                     2026 FLASHNET PY. TODOS LOS DERECHOS RESERVADOS.
                 </div>
                 <div style="color: #aaaaaa; font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase;">
                     Desarrollado con 💚 por KORAMDEO
                 </div>
-
             </div>
         
         <style>
@@ -5042,4 +4896,6 @@
 
 </body>
 </html>
+
+
 
