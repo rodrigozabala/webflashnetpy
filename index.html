@@ -90,8 +90,9 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 5%;
-            position: relative;
-            z-index: 101;
+            position: sticky;
+            top: 0;
+            z-index: 102;
             font-family: var(--font-mono);
             font-size: 0.75rem;
             font-weight: 700;
@@ -159,12 +160,20 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 5%;
-            position: sticky;
             width: 100%;
-            top: 0;
-            z-index: 100;
             background-color: var(--obsidian);
             border-bottom: 1px solid var(--glass);
+        }
+
+        #main-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
         }
 
         .logo-container {
@@ -1809,7 +1818,7 @@
 
         .hamburger-menu span {
             display: block;
-            width: 100%;
+            width: 90%;
             height: 3px;
             background: var(--flash-green);
             border-radius: 4px;
@@ -1862,16 +1871,16 @@
         @media (max-width: 479px) {
             /* Typography adjustments for very small screens */
             .hero h1 {
-                font-size: clamp(1.8rem, 9vw, 2.5rem) !important;
+                font-size: clamp(1.6rem, 8vw, 2.2rem) !important;
                 line-height: 1.1;
             }
 
             .support-msg h2, .commitment h2 {
-                font-size: clamp(1.8rem, 8vw, 2.5rem) !important;
+                font-size: clamp(1.6rem, 7vw, 2.2rem) !important;
             }
 
             .service-text h2 {
-                font-size: clamp(1.5rem, 7vw, 2rem) !important;
+                font-size: clamp(1.3rem, 6vw, 1.8rem) !important;
             }
         }
 
@@ -1881,8 +1890,25 @@
             nav {
                 padding: 0 10px 0 0;
                 height: 65px;
-                position: sticky;
-                top: 0;
+                position: relative !important;
+                top: auto;
+                left: auto;
+                width: 100%;
+                z-index: 100;
+            }
+            
+            #main-header {
+                position: fixed !important;
+                top: -2px;
+                left: 0;
+                width: 100%;
+                padding-top: 1px;
+                background-color: var(--obsidian);
+                z-index: 1000 !important;
+            }
+            
+            body {
+                padding-top: 65px !important;
             }
 
             .logo-container {
@@ -1904,9 +1930,10 @@
                 z-index: 101; /* ensure it's above nav */
             }
 
-            /* Hide green topbar on small screens and keep nav (logo + hamburger) */
+            /* Hide green topbar on mobile to prevent gap issues */
             .topbar {
-                display: none;
+                display: none !important;
+                position: fixed;
             }
 
             /* Hide only the header WhatsApp CTA ("Contáctanos") on mobile */
@@ -1960,67 +1987,117 @@
             }
 
             /* ========== HERO SECTION ========== */
+            /* Professional mobile layout: Image as background with controlled size */
             .hero {
                 height: auto;
-                min-height: 85vh;
-                padding: 8rem 5% 5rem;
+                min-height: 100vh;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                overflow: hidden;
             }
 
-            .hero-content {
-                margin-left: 0;
-            }
-
+            /* Image as background - controlled height */
             .hero-visual {
                 display: block;
                 position: absolute;
                 top: 0;
                 left: 0;
+                right: 0;
                 width: 100%;
-                height: 100%;
-                opacity: 0.75;
+                height: 50vh;
+                min-height: 300px;
+                max-height: 400px;
+                opacity: 0.8;
                 z-index: 1;
-                mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
-                -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+                mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+                -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+                overflow: hidden;
             }
 
             .hero-visual img {
+                position: absolute;
+                top: 0;
+                left: 0;
                 width: 100%;
                 height: 100%;
-                object-fit: cover !important;
-                object-position: top center !important; /* Place image subject at the top to ensure it's seen first */
+                object-fit: cover;
+                object-position: center center;
+                transform: none;
+                animation: none !important;
+            }
+
+            /* Content overlays the background image */
+            .hero-content {
+                margin-left: 0;
+                position: relative;
+                z-index: 10;
+                padding: 3rem 5%;
+                width: 100%;
+                max-width: 100%;
+                text-align: center;
+                margin-top: 0;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .hero h1,
+            .hero-mono,
+            .hero p {
+                text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.9);
             }
 
             .hero h1 {
-                font-size: clamp(2.2rem, 10vw, 3.5rem);
-                margin-bottom: 1.5rem;
+                font-size: clamp(1.8rem, 8vw, 2.5rem);
+                margin-bottom: 1rem;
+                line-height: 1.1;
             }
 
             .hero-mono {
-                font-size: 0.85rem;
+                font-size: 0.7rem;
                 letter-spacing: 2px;
+                margin-bottom: 0.75rem;
             }
 
             .hero p {
-                font-size: 1rem !important;
-                
-                margin-bottom: 2rem !important;
+                font-size: 0.95rem !important;
+                margin-bottom: 1.5rem !important;
+                line-height: 1.5;
             }
 
             .hero-text-slider {
-                min-height: 220px;
+                min-height: auto;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin-bottom: 0;
             }
 
             .hero-cta {
-                margin-right: auto;
-                gap: 1.5rem;
+                margin-top: 1.5rem !important;
+                margin-right: 0;
+                width: 100%;
+                max-width: 100%;
+                display: flex;
+                justify-content: center;
+                position: relative;
+                z-index: 10;
+                gap: 1rem;
                 align-items: stretch;
             }
 
             .btn-primary {
                 width: 100%;
+                max-width: 280px;
                 text-align: center;
                 padding: 1rem 2rem;
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
 
             .hero-cta > div {
@@ -2063,12 +2140,39 @@
             }
 
             .support-msg h2 {
-                font-size: clamp(2.2rem, 8vw, 3.5rem) !important;
+                font-size: clamp(1.6rem, 6.5vw, 2.4rem) !important;
+                margin-bottom: 1rem !important;
+            }
+
+            /* Section tags - override inline styles */
+            .hacker-text,
+            [style*="letter-spacing: 5px"] {
+                font-size: 0.85rem !important;
+                letter-spacing: 3px !important;
+                margin-bottom: 1rem !important;
+            }
+
+            /* Section titles - override inline styles */
+            [style*="clamp(3rem"] {
+                font-size: clamp(3rem, 7.5vw, 3.2rem) !important;
+                line-height: 1 !important;
                 margin-bottom: 1.5rem !important;
             }
 
+            /* Service section titles */
+            .services-highlight h2[style*="font-size: 4rem"],
+            .services-highlight h2[style*="font-size: 3.5rem"] {
+                font-size: clamp(3rem, 7.5vw, 3.2rem) !important;
+                line-height: 1 !important;
+            }
+
+            .service-text h2[style*="font-size: 3.5rem"] {
+                font-size: clamp(1.8rem, 7vw, 2.4rem) !important;
+                line-height: 1 !important;
+            }
+
             .support-msg p {
-                font-size: 1.1rem !important;
+                font-size: 1rem !important;
                 margin: 0 auto 1rem !important;
                 max-width: 100% !important;
             }
@@ -2097,8 +2201,8 @@
 
             /* ========== SERVICES HIGHLIGHT (GREEN SECTION) ========== */
             .services-highlight {
-                padding: 4rem 5% !important;
-                margin-top: 3rem !important;
+                padding: 3rem 5% 4rem !important;
+                margin-top: 0 !important;
                 margin-bottom: 3rem !important;
             }
 
@@ -2121,13 +2225,13 @@
             }
 
             .service-text h2 {
-                font-size: clamp(2rem, 8vw, 2.8rem) !important;
+                font-size: clamp(1.6rem, 6vw, 2.2rem) !important;
                 line-height: 1 !important;
                 margin-bottom: 1.5rem !important;
             }
 
             .service-text p {
-                font-size: 1rem !important;
+                font-size: 0.95rem !important;
                 max-width: 100% !important;
                 margin: 0 auto 1.5rem !important;
             }
@@ -2166,14 +2270,19 @@
                 max-width: 250px;
             }
 
-            /* Tectonic edges smaller */
+            /* Tectonic edges - improved sizing for mobile */
+            .services-highlight {
+                overflow: hidden;
+            }
+
             .services-highlight > div[style*="clip-path"] {
-                height: 30px !important;
-                top: -29px !important;
+                height: 40px !important;
+                top: -39px !important;
             }
 
             .services-highlight > div[style*="clip-path"]:last-child {
-                bottom: -29px !important;
+                bottom: -39px !important;
+                top: auto !important;
             }
 
             /* ========== PLANS SECTION ========== */
@@ -2253,7 +2362,7 @@
             }
 
             .commitment h2 {
-                font-size: clamp(1.8rem, 7vw, 2.5rem) !important;
+                font-size: clamp(1.5rem, 6vw, 2.2rem) !important;
             }
 
             .community-carousel {
@@ -2404,7 +2513,105 @@
 
             .services {
                 grid-template-columns: 1fr !important;
-                padding: 4rem 10% !important;
+                padding: 4rem 10% 0 !important;
+                min-height: auto !important;
+            }
+            
+            /* Disable heavy animations on mobile for performance */
+            .glitch-title {
+                animation: none !important;
+            }
+            
+            /* Tool buttons container optimization */
+            .tool-buttons-container {
+                gap: 0.75rem !important;
+                justify-content: center !important;
+            }
+
+            .tool-btn-item img {
+                width: 30px !important;
+                height: 30px !important;
+            }
+
+            .tool-btn-item:nth-child(2) img {
+                width: 40px !important;
+                height: 40px !important;
+            }
+
+            .tool-btn-item .btn-primary {
+                padding: 0.6rem 1rem !important;
+                font-size: 0.65rem !important;
+            }
+
+            /* Reviews mobile compacting */
+            .review-card {
+                padding: 1.5rem !important;
+            }
+
+            .review-card div[style*="width: 70px"] {
+                width: 50px !important;
+                height: 50px !important;
+                font-size: 1rem !important;
+            }
+
+            .review-card h4 {
+                font-size: 1rem !important;
+            }
+
+            .review-card p {
+                font-size: 0.95rem !important;
+                line-height: 1.6 !important;
+            }
+
+            .review-card svg[width="40"] {
+                width: 30px !important;
+                height: 30px !important;
+            }
+
+            /* Hide review navigation arrows on mobile */
+            .review-nav-btn {
+                display: none !important;
+            }
+        }
+        
+        /* Portrait orientation - background image layout */
+        @media (max-width: 768px) and (orientation: portrait) {
+            .hero {
+                min-height: 100vh;
+            }
+            
+            .hero-visual {
+                height: 45vh;
+                min-height: 280px;
+                max-height: 380px;
+            }
+            
+            .hero-content {
+                padding: 3rem 5%;
+                padding-top: max(3rem, env(safe-area-inset-top));
+                padding-left: max(5%, env(safe-area-inset-left));
+                padding-right: max(5%, env(safe-area-inset-right));
+            }
+        }
+        
+        /* Landscape orientation - background image layout */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .hero {
+                min-height: 100vh;
+            }
+            
+            .hero-visual {
+                height: 60vh;
+                min-height: 200px;
+                max-height: 300px;
+            }
+            
+            .hero-content {
+                padding: 2rem 5%;
+            }
+            
+            .hero h1 {
+                font-size: clamp(1.5rem, 6vw, 2rem) !important;
             }
         }
 
@@ -2466,6 +2673,7 @@
     <div class="grid-overlay"></div>
     <div class="tectonic-plate"></div>
     
+    <header id="main-header">
     <div class="topbar">
         <div class="topbar-contact">
             <svg width="18px" height="18px" viewBox="0 0 24 24" fill="currentColor" style="";><path d="M21 16.42V19.9561C21 20.4811 20.5941 20.9167 20.0705 20.9537C19.6331 20.9846 19.2763 21 19 21C10.1634 21 3 13.8366 3 5C3 4.72371 3.01545 4.36687 3.04635 3.9295C3.08337 3.40588 3.51894 3 4.04386 3H7.5801C7.83678 3 8.05176 3.19442 8.07753 3.4498C8.10067 3.67907 8.12218 3.86314 8.14207 4.00202C8.34435 5.41472 8.75753 6.75936 9.3487 8.00303C9.44359 8.20265 9.38171 8.44159 9.20185 8.57006L7.04355 10.1118C8.35752 13.1811 10.8189 15.6425 13.8882 16.9565L15.4271 14.8019C15.5572 14.6199 15.799 14.5573 16.001 14.6532C17.2446 15.2439 18.5891 15.6566 20.0016 15.8584C20.1396 15.8782 20.3225 15.8995 20.5502 15.9225C20.8056 15.9483 21 16.1633 21 16.42Z"></path></svg>Atención al cliente:
@@ -2477,7 +2685,7 @@
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 13.5H16.5L17.5 9.5H14V7.5C14 6.47062 14 5.5 16 5.5H17.5V2.1401C17.1743 2.09685 15.943 2 14.6429 2C11.9284 2 10 3.65686 10 6.69971V9.5H7V13.5H10V22H14V13.5Z"></path></svg>
             </a>
             <a href="https://www.instagram.com/flashnetpy/" target="_blank" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 9C10.3436 9 9.00098 10.3431 9.00098 12C9.00098 13.6573 10.3441 15 12.001 15C13.6583 15 15.001 13.6569 15.001 12C15.001 10.3427 13.6579 9 12.001 9ZM12.001 7C14.7614 7 17.001 9.2371 17.001 12C17.001 14.7605 14.7639 17 12.001 17C9.24051 17 7.00098 14.7629 7.00098 12C7.00098 9.23953 9.23808 7 12.001 7ZM18.501 6.74915C18.501 7.43926 17.9402 7.99917 17.251 7.99917C16.5609 7.99917 16.001 7.4384 16.001 6.74915C16.001 6.0599 16.5617 5.5 17.251 5.5C17.9393 5.49913 18.501 6.0599 18.501 6.74915ZM12.001 4C9.5265 4 9.12318 4.00655 7.97227 4.0578C7.18815 4.09461 6.66253 4.20007 6.17416 4.38967C5.74016 4.55799 5.42709 4.75898 5.09352 5.09255C4.75867 5.4274 4.55804 5.73963 4.3904 6.17383C4.20036 6.66332 4.09493 7.18811 4.05878 7.97115C4.00703 9.0752 4.00098 9.46105 4.00098 12C4.00098 14.4745 4.00753 14.8778 4.05877 16.0286C4.0956 16.8124 4.2012 17.3388 4.39034 17.826C4.5591 18.2606 4.7605 18.5744 5.09246 18.9064C5.42863 19.2421 5.74179 19.4434 6.17187 19.6094C6.66619 19.8005 7.19148 19.9061 7.97212 19.9422C9.07618 19.9939 9.46203 20 12.001 20C14.4755 20 14.8788 19.9934 16.0296 19.9422C16.8117 19.9055 17.3385 19.7996 17.827 19.6106C18.2604 19.4423 18.5752 19.2402 18.9074 18.9085C19.2436 18.5718 19.4445 18.2594 19.6107 17.8283C19.8013 17.3358 19.9071 16.8098 19.9432 16.0289C19.9949 14.9248 20.001 14.5389 20.001 12C20.001 9.52552 19.9944 9.12221 19.9432 7.97137C19.9064 7.18906 19.8005 6.66149 19.6113 6.17318C19.4434 5.74038 19.2417 5.42635 18.9084 5.09255C18.573 4.75715 18.2616 4.55693 17.8271 4.38942C17.338 4.19954 16.8124 4.09396 16.0298 4.05781C14.9258 4.00605 14.5399 4 12.001 4ZM12.001 2C14.7176 2 15.0568 2.01 16.1235 2.06C17.1876 2.10917 17.9135 2.2775 18.551 2.525C19.2101 2.77917 19.7668 3.1225 20.3226 3.67833C20.8776 4.23417 21.221 4.7925 21.476 5.45C21.7226 6.08667 21.891 6.81333 21.941 7.8775C21.9885 8.94417 22.001 9.28333 22.001 12C22.001 14.7167 21.991 15.0558 21.941 16.1225C21.8918 17.1867 21.7226 17.9125 21.476 18.55C21.2218 19.2092 20.8776 19.7658 20.3226 20.3217C19.7668 20.8767 19.2076 21.22 18.551 21.475C17.9135 21.7217 17.1876 21.89 16.1235 21.94C15.0568 21.9875 14.7176 22 12.001 22C9.28431 22 8.94514 21.99 7.87848 21.94C6.81431 21.8908 6.08931 21.7217 5.45098 21.475C4.79264 21.2208 4.23514 20.8767 3.67931 20.3217C3.12348 19.7658 2.78098 19.2067 2.52598 18.55C2.27848 17.9125 2.11098 17.1867 2.06098 16.1225C2.01348 15.0558 2.00098 14.7167 2.00098 12C2.00098 9.28333 2.01098 8.94417 2.06098 7.8775C2.11014 6.8125 2.27848 6.0875 2.52598 5.45C2.78014 4.79167 3.12348 4.23417 3.67931 3.67833C4.23514 3.1225 4.79348 2.78 5.45098 2.525C6.08848 2.2775 6.81348 2.11 7.87848 2.06C8.94514 2.0125 9.28431 2 12.001 2Z"></path></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 9C10.3436 9 9.00098 10.3431 9.00098 12C9.00098 13.6573 10.3441 15 12.001 15C13.6583 15 15.001 13.6569 15.001 12C15.001 10.3427 13.6579 9 12.001 9ZM12.001 7C14.7614 7 17.001 9.2371 17.001 12C17.001 14.7605 14.7639 17 12.001 17C9.24051 17 7.00098 14.7629 7.00098 12C7.00098 9.23953 9.23808 7 12.001 7ZM18.501 6.74915C18.501 7.43926 17.9402 7.99917 17.251 7.99917C16.5609 7.99917 16.001 7.4384 16.001 6.74915C16.001 6.0599 16.5617 5.5 17.251 5.5C17.9393 5.49913 18.501 6.0599 18.501 6.74915ZM12.001 4C9.5265 4 9.12318 4.00655 7.97227 4.0578C7.18815 4.09461 6.66253 4.20007 6.17416 4.38967C5.74016 4.55799 5.42709 4.75898 5.09352 5.09255C4.75867 5.4274 4.55804 5.73963 4.3904 6.17383C4.20036 6.66332 4.09493 7.18811 4.05878 7.97115C4.00703 9.0752 4.00098 9.46105 4.00098 12C4.00098 14.4745 4.00753 14.8778 4.05877 16.0286C4.0956 16.8124 4.2012 17.3388 4.39034 17.826C4.5591 18.2606 4.7605 18.5744 5.09246 18.9064C5.42863 19.2421 5.74179 19.4434 6.17416 19.6094C6.66619 19.8005 7.19148 19.9061 7.97212 19.9422C9.07618 19.9939 9.46203 20 12.001 20C14.4755 20 14.8788 19.9934 16.0296 19.9422C16.8117 19.9055 17.3385 19.7996 17.827 19.6106C18.2604 19.4423 18.5752 19.2402 18.9074 18.9085C19.2436 18.5718 19.4445 18.2594 19.6107 17.8283C19.8013 17.3358 19.9071 16.8098 19.9432 16.0289C19.9949 14.9248 20.001 14.5389 20.001 12C20.001 9.52552 19.9944 9.12221 19.9432 7.97137C19.9064 7.18906 19.8005 6.66149 19.6113 6.17318C19.4434 5.74038 19.2417 5.42635 18.9084 5.09255C18.573 4.75715 18.2616 4.55693 17.8271 4.38942C17.338 4.19954 16.8124 4.09396 16.0298 4.05781C14.9258 4.00605 14.5399 4 12.001 4ZM12.001 2C14.7176 2 15.0568 2.01 16.1235 2.06C17.1876 2.10917 17.9135 2.2775 18.551 2.525C19.2101 2.77917 19.7668 3.1225 20.3226 3.67833C20.8776 4.23417 21.221 4.7925 21.476 5.45C21.7226 6.08667 21.891 6.81333 21.941 7.8775C21.9885 8.94417 22.001 9.28333 22.001 12C22.001 14.7167 21.991 15.0558 21.941 16.1225C21.8918 17.1867 21.7226 17.9125 21.476 18.55C21.2218 19.2092 20.8776 19.7658 20.3226 20.3217C19.7668 20.8767 19.2076 21.22 18.551 21.475C17.9135 21.7217 17.1876 21.89 16.1235 21.94C15.0568 21.9875 14.7176 22 12.001 22C9.28431 22 8.94514 21.99 7.87848 21.94C6.81431 21.8908 6.08931 21.7217 5.45098 21.475C4.79264 21.2208 4.23514 20.8767 3.67931 20.3217C3.12348 19.7658 2.78098 19.2067 2.52598 18.55C2.27848 17.9125 2.11098 17.1867 2.06098 16.1225C2.01348 15.0558 2.00098 14.7167 2.00098 12C2.00098 9.28333 2.01098 8.94417 2.06098 7.8775C2.11014 6.8125 2.27848 6.0875 2.52598 5.45C2.78014 4.79167 3.12348 4.23417 3.67931 3.67833C4.23514 3.1225 4.79348 2.78 5.45098 2.525C6.08848 2.2775 6.81348 2.11 7.87848 2.06C8.94514 2.0125 9.28431 2 12.001 2Z"></path></svg>
             </a>
             <a href="https://www.tiktok.com/@flashnetpy/video/7446866267845233926" target="_blank" aria-label="TikTok">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8.24537V15.5C16 19.0899 13.0899 22 9.5 22C5.91015 22 3 19.0899 3 15.5C3 11.9101 5.91015 9 9.5 9C10.0163 9 10.5185 9.06019 11 9.17393V12.3368C10.5454 12.1208 10.0368 12 9.5 12C7.567 12 6 13.567 6 15.5C6 17.433 7.567 19 9.5 19C11.433 19 13 17.433 13 15.5V2H16C16 4.76142 18.2386 7 21 7V10C19.1081 10 17.3696 9.34328 16 8.24537Z"></path></svg>
@@ -2513,6 +2721,7 @@
             Contáctanos
         </a>
     </nav>
+    </header>
 
     <section class="hero">
         <div class="hero-content">
@@ -3492,54 +3701,56 @@
                 display: none !important;
             }
 
-            /* Improved arrow button styling for reviews carousel */
-            .review-nav-btn {
-                width: 64px !important;
-                height: 64px !important;
-                border-radius: 50% !important;
-                background: linear-gradient(135deg, rgba(0,224,31,0.25), rgba(0,224,31,0.15)) !important;
-                border: 2.5px solid var(--flash-green) !important;
-                color: var(--flash-green) !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                box-shadow: 
-                    0 0 20px rgba(0,224,31,0.35),
-                    0 0 40px rgba(0,224,31,0.15),
-                    0 8px 20px rgba(0,0,0,0.5),
-                    inset 0 0 12px rgba(255,255,255,0.2) !important;
-                backdrop-filter: blur(12px) !important;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-                z-index: 20 !important;
-                opacity: 0.15 !important;
-                font-weight: bold;
+            /* Improved arrow button styling for reviews carousel - Desktop Only */
+            @media (min-width: 769px) {
+                .review-nav-btn {
+                    width: 64px !important;
+                    height: 64px !important;
+                    border-radius: 50% !important;
+                    background: linear-gradient(135deg, rgba(0,224,31,0.25), rgba(0,224,31,0.15)) !important;
+                    border: 2.5px solid var(--flash-green) !important;
+                    color: var(--flash-green) !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    box-shadow: 
+                        0 0 20px rgba(0,224,31,0.35),
+                        0 0 40px rgba(0,224,31,0.15),
+                        0 8px 20px rgba(0,0,0,0.5),
+                        inset 0 0 12px rgba(255,255,255,0.2) !important;
+                    backdrop-filter: blur(12px) !important;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                    z-index: 20 !important;
+                    opacity: 0.15 !important;
+                    font-weight: bold;
+                }
+
+                .review-nav-btn svg { stroke: var(--flash-green) !important; width: 24px; height: 24px; stroke-width: 2; }
+
+                /* Show on hover of parent container or direct button hover */
+                div[style*="max-width: 800px"]:hover .review-nav-btn,
+                .review-nav-btn:hover {
+                    opacity: 1 !important;
+                }
+
+                .review-nav-btn:hover {
+                    transform: scale(1.12) !important;
+                    background: linear-gradient(135deg, rgba(0,224,31,0.4), rgba(0,224,31,0.25)) !important;
+                    box-shadow: 
+                        0 0 30px rgba(0,224,31,0.5),
+                        0 0 60px rgba(0,224,31,0.25),
+                        0 12px 30px rgba(0,0,0,0.6),
+                        inset 0 0 16px rgba(0,224,31,0.15) !important;
+                }
+
+                .review-nav-btn:active {
+                    transform: scale(1.08) !important;
+                }
+
+                /* Position arrows outside the card edges */
+                .review-nav-btn.prev { left: -80px !important; top: 50% !important; transform: translateY(-50%) !important; }
+                .review-nav-btn.next { right: -80px !important; top: 50% !important; transform: translateY(-50%) !important; }
             }
-
-            .review-nav-btn svg { stroke: var(--flash-green) !important; width: 24px; height: 24px; stroke-width: 2; }
-
-            /* Show on hover of parent container or direct button hover */
-            div[style*="max-width: 800px"]:hover .review-nav-btn,
-            .review-nav-btn:hover {
-                opacity: 1 !important;
-            }
-
-            .review-nav-btn:hover {
-                transform: scale(1.12) !important;
-                background: linear-gradient(135deg, rgba(0,224,31,0.4), rgba(0,224,31,0.25)) !important;
-                box-shadow: 
-                    0 0 30px rgba(0,224,31,0.5),
-                    0 0 60px rgba(0,224,31,0.25),
-                    0 12px 30px rgba(0,0,0,0.6),
-                    inset 0 0 16px rgba(0,224,31,0.15) !important;
-            }
-
-            .review-nav-btn:active {
-                transform: scale(1.08) !important;
-            }
-
-            /* Position arrows outside the card edges */
-            .review-nav-btn.prev { left: -80px !important; top: 50% !important; transform: translateY(-50%) !important; }
-            .review-nav-btn.next { right: -80px !important; top: 50% !important; transform: translateY(-50%) !important; }
         </style>
     </section>
 
@@ -3655,6 +3866,7 @@
                 <!-- Duplicate for seamless loop -->
                 <div class="community-card">
                     <img src="https://res.cloudinary.com/dxfbj0irg/image/upload/f_auto,q_auto,dpr_auto,w_auto/v1769876380/comisar%C3%ADa-8va-san_estanislao_qkmdnc.jpg" alt="Comisaría de San Estanislao" loading="lazy" decoding="async">
+                    <div class="community-info">
                         <h4 style="font-size: 0.9rem; text-transform: uppercase; font-family: var(--font-mono); color: var(--flash-green); font-weight: 700; letter-spacing: 1px;">Comisaría 8va</h4>
                         <p style="font-size: 0.7rem; color: #cccccc; margin-top: 0.4rem; letter-spacing: 2px;">SANTANÍ</p>
                     </div>
@@ -4020,16 +4232,16 @@
                    </ul>
                    
                    <div style="font-family: var(--font-mono); font-weight: 800; margin-bottom: 1.5rem; font-size: 0.8rem; color: #000;">DESCARGAR HERRAMIENTAS:</div>
-                    <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem; align-items: flex-end;">
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.7rem;">
+                    <div class="tool-buttons-container" style="display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem; align-items: flex-end;">
+                        <div class="tool-btn-item" style="display: flex; flex-direction: column; align-items: center; gap: 0.7rem;">
                             <img src="img/icons/android-2.ico" alt="Android" style="width: 35px; height: 35px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));">
                             <a href="https://families.google/intl/es-419_ALL/familylink/" target="_blank" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 4px 4px 0px #fff; padding: 0.8rem 1.5rem; font-size: 0.75rem;">ANDROID</a>
                         </div>
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                        <div class="tool-btn-item" style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
                             <img src="img/icons/ios.ico" alt="Apple" style="width: 50px; height: 50px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));">
                             <a href="https://support.apple.com/es-lamr/HT201304" target="_blank" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 4px 4px 0px #fff; padding: 0.8rem 1.5rem; font-size: 0.75rem;">iOS (APPLE)</a>
                         </div>
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
+                        <div class="tool-btn-item" style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
                             <img src="img/icons/windows.ico" alt="Windows" style="width: 40px; height: 40px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));">
                             <a href="https://support.microsoft.com/es-es/account-billing/introducci%C3%B3n-a-microsoft-family-safety-b6280c9d-38d7-82ff-0e4f-a6cb7e659344" target="_blank" class="btn-primary" style="background: #000; color: var(--flash-green); border: none; box-shadow: 4px 4px 0px #fff; padding: 0.8rem 1.5rem; font-size: 0.75rem;">WINDOWS</a>
                         </div>
@@ -4855,19 +5067,28 @@
 
             /* RESPONSIVE */
             @media (max-width: 1024px) {
-                .contact-top-row {
-                    grid-template-columns: 1fr;
-                }
-                
                 .contact-grid-container {
-                     gap: 4rem;
-                     padding: 6rem 5%;
+                     gap: 3rem;
+                     padding: 4rem 5%;
+                     justify-items: center !important;
+                }
+
+                .contact-top-row {
+                    grid-template-columns: 1fr !important;
+                    gap: 3rem !important;
+                    justify-items: center !important;
+                    width: 100% !important;
                 }
 
                 .footer-content {
-                    grid-template-columns: 1fr;
-                    gap: 2rem;
+                    grid-template-columns: 1fr !important;
+                    gap: 3rem;
                     text-align: center;
+                }
+
+                .footer-brand, .footer-contact, .footer-legal {
+                    align-items: center !important;
+                    text-align: center !important;
                 }
 
                 .footer-social {
@@ -4877,11 +5098,195 @@
                 .footer-links {
                     justify-content: center;
                 }
+
+                .footer-bottom {
+                    flex-direction: column !important;
+                    gap: 0.5rem !important;
+                    text-align: center !important;
+                }
             }
             
             @media (max-width: 768px) {
                 .support-cards-row { grid-template-columns: 1fr; }
-                .support-hero-unified { padding: 6rem 5%; }
+                .support-hero-unified { padding: 4rem 5%; }
+                
+                /* Contact form mobile optimizations */
+                .contact-grid-container {
+                    padding: 3rem 2% !important;
+                    gap: 2.5rem !important;
+                    justify-items: start !important;
+                }
+                
+                .contact-form-wrapper, .info-green-card {
+                    width: 94% !important;
+                    max-width: 500px !important;
+                    margin: 0 0 0 2% !important;
+                }
+                
+                .contact-form-header {
+                    margin-bottom: 2rem !important;
+                    text-align: center;
+                }
+
+                .contact-form-header h2 {
+                    font-size: clamp(2rem, 7vw, 2.6rem) !important;
+                    line-height: 1.1 !important;
+                    text-align: center !important;
+                }
+
+                .contact-form-header h2 br {
+                    display: none !important;
+                }
+                
+                .contact-form-header p {
+                    font-size: 0.9rem !important;
+                    line-height: 1.5 !important;
+                    text-align: center !important;
+                    max-width: 90% !important;
+                    margin: 0 auto 1rem !important;
+                }
+                
+                .contact-form-card {
+                    padding: 1.5rem !important;
+                }
+                
+                .form-row {
+                    grid-template-columns: 1fr !important;
+                    gap: 1rem !important;
+                }
+
+                .form-group label {
+                    font-size: 0.8rem !important;
+                }
+
+                .submit-btn {
+                    padding: 1.2rem 1.5rem !important;
+                    font-size: 1.1rem !important;
+                }
+                
+                /* Info green card mobile fixes */
+                .info-green-card {
+                    padding: 1.8rem !important;
+                    border-radius: 20px !important;
+                    border-width: 2px !important;
+                }
+                
+                .info-green-card h3 {
+                    font-size: clamp(2rem, 7vw, 2.6rem) !important;
+                    margin-bottom: 0.8rem !important;
+                    line-height: 1 !important;
+                    text-align: center !important;
+                }
+
+                .info-green-card h3 br {
+                    display: none !important;
+                }
+                
+                .info-green-card .card-subtitle {
+                    font-size: 0.9rem !important;
+                    padding: 0.6rem 0.8rem !important;
+                    margin-bottom: 2rem !important;
+                    width: 100%;
+                    box-sizing: border-box;
+                }
+                
+                .info-green-card p {
+                    font-size: 0.75rem !important;
+                    padding: 0.3rem 0.8rem !important;
+                }
+                
+                .info-green-card .info-details {
+                    font-size: 0.9rem !important;
+                    margin-bottom: 2rem !important;
+                    line-height: 1.4 !important;
+                    padding-left: 0.8rem !important;
+                }
+                
+                .info-green-card img {
+                    height: 180px !important;
+                    transform: rotate(0deg) !important;
+                    box-shadow: 6px 6px 0px #000 !important;
+                    margin-top: 1.5rem !important;
+                }
+
+                /* Map responsiveness */
+                .map-wrapper {
+                    width: 98% !important;
+                    max-width: 500px !important;
+                    height: 200px !important;
+                    margin: 1.5rem 0 1.5rem 2% !important;
+                    display: block !important;
+                    justify-self: center !important;
+                }
+
+                .map-container iframe {
+                    min-height: 200px !important;
+                    height: 200px !important;
+                }
+
+                /* Footer mobile refinement */
+                footer {
+                    padding: 3rem 5% 2rem !important;
+                    text-align: center !important;
+                }
+
+                .footer-content {
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    gap: 2.5rem !important;
+                    text-align: center !important;
+                }
+
+                .footer-brand, .footer-contact, .footer-legal {
+                    width: 100% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    text-align: center !important;
+                }
+
+                .footer-brand .logo-container img {
+                    height: 60px !important;
+                    margin: 0 auto !important;
+                }
+
+                .footer-brand .logo-container span {
+                    margin-left: 0 !important;
+                    margin-top: 5px !important;
+                    font-size: 0.75rem !important;
+                    text-align: center !important;
+                    width: 100%;
+                }
+
+                .social-links {
+                    align-items: center !important;
+                    margin-top: 1rem;
+                }
+
+                .social-icons {
+                    justify-content: center !important;
+                }
+
+                .contact-info strong {
+                    font-size: 1rem !important;
+                }
+
+                .contact-info span {
+                    font-size: 0.85rem !important;
+                }
+
+                .footer-bottom {
+                    flex-direction: column !important;
+                    gap: 0.8rem !important;
+                    text-align: center !important;
+                    padding: 1.5rem 0 !important;
+                }
+                
+                .footer-bottom > div {
+                    padding: 0 !important;
+                    text-align: center !important;
+                }
             }
         </style>
 
@@ -5008,51 +5413,7 @@
                     Desarrollado con 💚 por KORAMDEO
                 </div>
             </div>
-        
-        <style>
-            footer .nav-links a:hover {
-                color: var(--flash-green);
-                text-shadow: 0 0 10px rgba(0, 224, 31, 0.5);
-            }
-            
-            /* Footer Responsive Styles */
-            footer .nav-links a:hover {
-                color: var(--flash-green);
-                text-shadow: 0 0 10px rgba(0, 224, 31, 0.5);
-            }
-            
-            @media (max-width: 1024px) {
-                footer > div > div:first-child {
-                    grid-template-columns: 1fr !important;
-                    justify-items: center;
-                    text-align: center;
-                    gap: 3rem !important;
-                }
 
-                /* Reset alignments for mobile stack */
-                footer > div > div:first-child > div {
-                    align-items: center !important;
-                    justify-self: center !important;
-                    text-align: center !important;
-                }
-
-                /* Ensure text aligns center */
-                footer > div > div:first-child > div * {
-                    text-align: center !important;
-                }
-
-                footer .nav-links {
-                    justify-content: center;
-                }
-            }
-            
-            @media (max-width: 768px) {
-                footer .nav-links {
-                    flex-direction: column;
-                    gap: 1.5rem !important;
-                }
-            }
-        </style>
     </footer>
 
     <!-- Back to Top Button -->
