@@ -52,13 +52,24 @@
             cursor: crosshair;
         }
 
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+
         body {
             background-color: var(--obsidian);
             color: var(--pure-white);
             font-family: var(--font-main);
-            overflow-x: hidden;
             line-height: 1.5;
             scroll-behavior: smooth;
+        }
+
+        /* Prevent all direct children from causing horizontal overflow */
+        body > * {
+            max-width: 100vw;
+            overflow-x: hidden;
         }
 
         /* Tectonic Background Elements */
@@ -1891,7 +1902,7 @@
                 position: relative !important;
                 top: auto;
                 left: auto;
-                width: auto;
+                width: 100%;
                 z-index: 100;
             }
             
@@ -1911,7 +1922,7 @@
 
             .logo-container {
                 display: flex;
-                transform: translateY(2px); /* Removed alignment fix for more compact header */
+                transform: translateY(3px); /* Removed alignment fix for more compact header */
             }
 
             .logo-container img {
