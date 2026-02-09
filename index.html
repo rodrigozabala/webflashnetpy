@@ -1887,7 +1887,7 @@
             /* ========== NAVIGATION ========== */
             nav {
                 padding: 0 10px 0 0;
-                height: 65px;
+                height: 55px;
                 position: relative !important;
                 top: auto;
                 left: auto;
@@ -1906,16 +1906,16 @@
             }
             
             body {
-                padding-top: 65px !important;
+                padding-top: 55px !important;
             }
 
             .logo-container {
                 display: flex;
-                transform: translateY(4.6px); /* Optical alignment fix */
+                transform: translateY(0); /* Removed alignment fix for more compact header */
             }
 
             .logo-container img {
-                height: 70px !important;
+                height: 45px !important;
             }
 
             .hamburger-menu {
@@ -5492,10 +5492,12 @@
         @media (max-width: 768px) {
             .whatsapp-bubble {
                 display: block;
+                bottom: 80px;
+                right: 20px;
             }
 
             .back-to-top {
-                bottom: 90px;
+                bottom: 145px;
                 right: 20px;
                 width: 45px;
                 height: 45px;
