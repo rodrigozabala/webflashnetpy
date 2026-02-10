@@ -1224,7 +1224,7 @@
                 linear-gradient(90deg, rgba(0, 224, 31, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
             pointer-events: none;
-            z-index: -1;
+            z-index: 2;
         }
 
         /* Grid Pulse "Packet" */
@@ -2831,7 +2831,8 @@
             if (!container) return;
 
             // Spawn rate for synaptic network effect
-            setInterval(() => {
+            if (window.pulseInterval) clearInterval(window.pulseInterval);
+            window.pulseInterval = setInterval(() => {
                 spawnPulse(container, GRID_SIZE);
             }, 1200); // Optimal spawn frequency for realistic synaptic network
         }
@@ -2887,12 +2888,6 @@
             container.appendChild(pulse);
         }
 
-        // Initialize Grid Pulse Engine with robust loading check
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initGridPulses);
-        } else {
-            initGridPulses();
-        }
 
             </script>
             <script>
