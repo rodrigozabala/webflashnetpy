@@ -21,7 +21,7 @@
     <style>
         :root {
             --obsidian: #080808;
-            --flash-green: #20db2f;
+            --flash-green: #00E01F;
             --pure-white: #ffffff;
             --glass: rgba(255, 255, 255, 0.03);
             --border-green: rgba(0, 224, 31, 0.3);
@@ -111,13 +111,23 @@
             font-style: normal;
         }
 
-        .topbar-contact span {
+        .topbar-contact > span {
             font-size: 0.75rem;
             font-weight: 700;
             border: 2px solid white;
             padding: 5px 16px;
             border-radius: 50px;
             letter-spacing: 0.5px;
+        }
+
+        .phone-numbers {
+            animation: fade-pulse 2s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes fade-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .topbar-socials {
@@ -168,14 +178,27 @@
         }
 
         #main-header {
-            position: sticky;
-            top: -48px;
+            position: fixed; /* Changed to fixed for reliable sticking */
+            top: 0;
+            left: 0;
             z-index: 1000;
             width: 100%;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
             transform: translateZ(0);
             -webkit-transform: translateZ(0);
+            transition: transform 0.3s ease;
+        }
+        
+        /* Sticky Navigation Logic */
+        #main-header.header-scrolled {
+            transform: translateY(-48px); /* Hide topbar height */
+        }
+
+        /* Ensure nav bar itself stays visible and fixed */
+        #main-header.header-scrolled nav {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5); /* Optional: add shadow when scrolled */
+            /* border-bottom removed as per request */
         }
 
         .logo-container {
@@ -206,10 +229,11 @@
 
         /* Hero Section */
         .hero {
-            min-height: 90vh;
+            min-height: 95vh;
             display: flex;
-            align-items: flex-start; /* Changed from center to flex-start for top-weighted balance */
-            padding: 12vh 10% 60px; /* Increased top padding for intentional hierarchy */
+            align-items: flex-start;
+            /* Further increased padding-top to lower content more */
+            padding: 210px 10% 60px;
             position: relative;
             overflow: hidden;
         }
@@ -223,26 +247,29 @@
 
         .hero-visual {
             position: absolute;
+            top: 110px; /* Mantener desplazamiento para evitar corte por header */
+            right: 0; /* Ajuste óptico para escritorio */
+            width: 50%; /* Ancho óptimo para dar espacio al texto */
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-visual img {
+            position: absolute;
             top: 0;
             right: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
-            /* Fade image slightly into background on the left */
-            mask-image: linear-gradient(to right, transparent, black 10%);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 10%);
-        }
-
-        .hero-visual img {
-            position: absolute; /* Stack images */
-            top: 0;
-            left: -8%;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            opacity: 0; /* Hidden by default */
-            transition: opacity 1.5s ease-in-out;
+            object-fit: cover; /* Evitar deformación */
+            object-position: center; /* Centrar en el sujeto (gamer, office, etc) */
+            
+            /* Máscara suavizada para mejor integración con el fondo */
+            mask-image: linear-gradient(to right, transparent, black 20%);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 20%);
+            
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
             animation: hero-float 30s ease-in-out infinite;
         }
 
@@ -449,9 +476,8 @@
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 10px; /* Increased gap to match backup structure */
             pointer-events: none;
-            /* Removed `contain: paint` to avoid clipping artifacts */
         }
 
         /* Right side arrows (<<<) */
@@ -462,15 +488,22 @@
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 10px; /* Increased gap to match backup structure */
             pointer-events: none;
-            /* Removed `contain: paint` to avoid clipping artifacts */
         }
 
-        .cyber-arrow-group {
+        .cyber-arrows-left .cyber-arrow-group {
             display: flex;
             align-items: center;
-            gap: 1px;
+            gap: 6px;
+            animation: arrow-pulse-right 2s ease-in-out infinite; /* Pulses RIGHT (inward) */
+        }
+
+        .cyber-arrows-right .cyber-arrow-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            animation: arrow-pulse-left 2s ease-in-out infinite; /* Pulses LEFT (inward) */
         }
 
         .cyber-arrows-left .cyber-arrow-group:nth-child(2) {
@@ -491,21 +524,17 @@
 
         .cyber-arrow {
             font-family: var(--font-mono);
-            font-size: 2rem;
-            font-weight: 700;
+            font-size: 1.5rem;
+            font-weight: 900;
             color: var(--flash-green);
             text-shadow: 
-                0 0 6px var(--flash-green),
-                0 0 10px rgba(32, 219, 47, 0.6);
+                0 0 10px var(--flash-green),
+                0 0 20px var(--flash-green),
+                0 0 30px var(--flash-green),
+                0 0 40px rgba(32, 219, 47, 0.5);
             opacity: 0;
-            transform: translateZ(0); /* force GPU layer */
             will-change: transform, opacity;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            -webkit-transform: translateZ(0);
-            transition: opacity 0.18s linear, transform 0.2s cubic-bezier(0.2, 0.9, 0.3, 1);
-            line-height: 0.9;
-            mix-blend-mode: screen; /* blend glow with background to avoid looking like a pasted image */
+            filter: drop-shadow(0 0 8px var(--flash-green));
         }
 
         .cyber-arrow:nth-child(1) {
@@ -520,102 +549,76 @@
             animation-delay: 0.24s;
         }
 
-        /* Left arrows flow inward */
+        /* Left arrows flow rightward (inward) */
         .cyber-arrows-left .cyber-arrow {
-            animation: arrow-flow-left 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+            animation: arrow-flow-in-right 2s ease-in-out infinite;
         }
 
-        /* Right arrows flow inward */
+        /* Right arrows flow leftward (inward) */
         .cyber-arrows-right .cyber-arrow {
-            animation: arrow-flow-right 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+            animation: arrow-flow-in-left 2s ease-in-out infinite;
         }
 
-        /* Stagger durations per group to distribute repaint load */
-        .cyber-arrows-left .cyber-arrow-group:nth-child(1) .cyber-arrow,
-        .cyber-arrows-right .cyber-arrow-group:nth-child(1) .cyber-arrow { animation-duration: 3s; }
+        /* Group Staggering */
+        .cyber-arrow-group:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        .cyber-arrow-group:nth-child(3) {
+            animation-delay: 0.6s;
+        }
 
-        .cyber-arrows-left .cyber-arrow-group:nth-child(2) .cyber-arrow,
-        .cyber-arrows-right .cyber-arrow-group:nth-child(2) .cyber-arrow { animation-duration: 3.08s; }
+        /* Individual Arrow Staggering - Left (Normal Order 1->3) */
+        .cyber-arrows-left .cyber-arrow:nth-child(1) { animation-delay: 0s; }
+        .cyber-arrows-left .cyber-arrow:nth-child(2) { animation-delay: 0.2s; }
+        .cyber-arrows-left .cyber-arrow:nth-child(3) { animation-delay: 0.4s; }
 
-        .cyber-arrows-left .cyber-arrow-group:nth-child(3) .cyber-arrow,
-        .cyber-arrows-right .cyber-arrow-group:nth-child(3) .cyber-arrow { animation-duration: 3.16s; }
+        /* Individual Arrow Staggering - Right (Reverse Order 3->1) */
+        .cyber-arrows-right .cyber-arrow:nth-child(1) { animation-delay: 0.4s; }
+        .cyber-arrows-right .cyber-arrow:nth-child(2) { animation-delay: 0.2s; }
+        .cyber-arrows-right .cyber-arrow:nth-child(3) { animation-delay: 0s; }
 
-        @keyframes arrow-flow-left {
+        @keyframes arrow-flow-in-right {
             0% {
                 opacity: 0;
-                transform: translate3d(-12px,-3px,0) scale(0.85);
+                transform: translateX(-20px) scale(0.8);
             }
-            10% {
-                opacity: 0.4;
-                transform: translate3d(-8px,-1.8px,0) scale(0.89);
-            }
-            25% {
-                opacity: 0.7;
-                transform: translate3d(-2px,-0.9px,0) scale(0.95);
-            }
-            40% {
-                opacity: 0.95;
-                transform: translate3d(1px,0px,0) scale(0.98);
-            }
+            20% { opacity: 0.3; }
             50% {
                 opacity: 1;
-                transform: translate3d(3px,1.6px,0) scale(1.02);
+                transform: translateX(0) scale(1);
             }
-            60% {
-                opacity: 0.95;
-                transform: translate3d(1px,0.6px,0) scale(0.99);
-            }
-            75% {
-                opacity: 0.7;
-                transform: translate3d(-3px,-1px,0) scale(0.94);
-            }
-            90% {
-                opacity: 0.3;
-                transform: translate3d(-8px,-1.8px,0) scale(0.88);
-            }
+            70% { opacity: 0.8; }
             100% {
                 opacity: 0;
-                transform: translate3d(-12px,-3px,0) scale(0.85);
+                transform: translateX(20px) scale(0.8);
             }
         }
 
-        @keyframes arrow-flow-right {
+        @keyframes arrow-flow-in-left {
             0% {
                 opacity: 0;
-                transform: translate3d(12px,-3px,0) scale(0.85);
+                transform: translateX(20px) scale(0.8);
             }
-            10% {
-                opacity: 0.4;
-                transform: translate3d(8px,-1.8px,0) scale(0.89);
-            }
-            25% {
-                opacity: 0.7;
-                transform: translate3d(2px,-0.9px,0) scale(0.95);
-            }
-            40% {
-                opacity: 0.95;
-                transform: translate3d(-1px,0px,0) scale(0.98);
-            }
+            20% { opacity: 0.3; }
             50% {
                 opacity: 1;
-                transform: translate3d(-3px,1.6px,0) scale(1.02);
+                transform: translateX(0) scale(1);
             }
-            60% {
-                opacity: 0.95;
-                transform: translate3d(-1px,0.6px,0) scale(0.99);
-            }
-            75% {
-                opacity: 0.7;
-                transform: translate3d(3px,-1px,0) scale(0.94);
-            }
-            90% {
-                opacity: 0.3;
-                transform: translate3d(8px,-1.8px,0) scale(0.88);
-            }
+            70% { opacity: 0.8; }
             100% {
                 opacity: 0;
-                transform: translate3d(12px,-3px,0) scale(0.85);
+                transform: translateX(-20px) scale(0.8);
             }
+        }
+
+        @keyframes arrow-pulse-right {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+
+        @keyframes arrow-pulse-left {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-5px); }
         }
 
         /* Hover acceleration & glow intensification */
@@ -883,13 +886,6 @@
             opacity: 0.6;
         }
 
-        .hero-visual {
-            position: absolute;
-            right: -8%;
-            width: 60%;
-            height: 100%;
-            z-index: 1;
-        }
 
         .obsidian-card {
             position: absolute;
@@ -1018,6 +1014,10 @@
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             position: relative;
             border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle default border */
+            min-height: 520px; /* Reserve space for layout stability */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         .plan-item:hover {
@@ -1224,7 +1224,7 @@
                 linear-gradient(90deg, rgba(0, 224, 31, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
             pointer-events: none;
-            z-index: 2;
+            z-index: 0;
         }
 
         /* Grid Pulse "Packet" */
@@ -1234,7 +1234,7 @@
             box-shadow: 0 0 10px var(--flash-green), 0 0 20px var(--flash-green);
             opacity: 0;
             pointer-events: none;
-            z-index: 1; /* Inside the -1 overlay container, this sits on top of the lines */
+            z-index: 0; /* Align with grid overlay */
         }
 
         /* Footer */
@@ -2682,7 +2682,7 @@
     <div class="topbar">
         <div class="topbar-contact">
             <svg width="18px" height="18px" viewBox="0 0 24 24" fill="currentColor" style="";><path d="M21 16.42V19.9561C21 20.4811 20.5941 20.9167 20.0705 20.9537C19.6331 20.9846 19.2763 21 19 21C10.1634 21 3 13.8366 3 5C3 4.72371 3.01545 4.36687 3.04635 3.9295C3.08337 3.40588 3.51894 3 4.04386 3H7.5801C7.83678 3 8.05176 3.19442 8.07753 3.4498C8.10067 3.67907 8.12218 3.86314 8.14207 4.00202C8.34435 5.41472 8.75753 6.75936 9.3487 8.00303C9.44359 8.20265 9.38171 8.44159 9.20185 8.57006L7.04355 10.1118C8.35752 13.1811 10.8189 15.6425 13.8882 16.9565L15.4271 14.8019C15.5572 14.6199 15.799 14.5573 16.001 14.6532C17.2446 15.2439 18.5891 15.6566 20.0016 15.8584C20.1396 15.8782 20.3225 15.8995 20.5502 15.9225C20.8056 15.9483 21 16.1633 21 16.42Z"></path></svg>Atención al cliente:
-            <span>0973 553 233 - 0986 296 584</span>
+            <span><span class="phone-numbers">0973 553 233 - 0986 296 584</span></span>
         </div>
         <div class="topbar-socials">
             <span class="socials-label">Seguínos:</span>
@@ -2726,7 +2726,46 @@
             Contáctanos
         </a>
     </nav>
-    </header>
+</header>
+    
+    <!-- Sticky Header Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.getElementById('main-header');
+            
+            if (!header) return; // Guard clause
+
+            const toggleSticky = () => {
+                const currentScroll = window.scrollY;
+                
+                // Only trigger on desktop to avoid mobile conflicts
+                if (window.innerWidth > 768) {
+                    if (currentScroll > 50) {
+                        header.classList.add('header-scrolled');
+                    } else {
+                        header.classList.remove('header-scrolled');
+                    }
+                } else {
+                   header.classList.remove('header-scrolled');
+                }
+            };
+
+            // Optimize scroll event with requestAnimationFrame
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        toggleSticky();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            
+            // Also run on resize to handle orientation changes
+            window.addEventListener('resize', toggleSticky);
+        });
+    </script>
 
     <section class="hero">
         <div class="hero-content">
@@ -2739,7 +2778,7 @@
                     grid-area: 1 / 1;
                     opacity: 0;
                     transform: translateX(50px);
-                    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                    transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out;
                     pointer-events: none;
                     visibility: hidden;
                 }
@@ -2749,13 +2788,13 @@
                     pointer-events: auto;
                     visibility: visible;
                 }
-                /* Staggered text reveal with glitch */
+                /* Staggered text reveal with glitch - synchronized with slide */
                 .hero-slide.active h1 { 
-                    animation: slide-in-right 0.8s 0.1s forwards, glitch-text 5s 1s infinite; 
+                    animation: slide-in-right 1.2s ease-in-out forwards, glitch-text 5s 1s infinite; 
                     opacity: 0; 
                 }
                 .hero-slide.active p { 
-                    animation: slide-in-right 0.8s 0.2s forwards; 
+                    animation: slide-in-right 1.2s 0.2s ease-in-out forwards; 
                     opacity: 0; 
                 }
                 
@@ -2779,7 +2818,7 @@
                 <!-- Slide 2: Work (Stability) -->
                 <div class="hero-slide" data-slide="1">
                     <span class="hero-mono" data-text="[ CONEXIÓN_ESTABLE ]"></span>
-                    <h1>TRABAJÁ DESDE CASA<br><span>SIN PROBLEMAS</span></h1>
+                    <h1>TRABAJÁ<br><span>SIN INTERRUPCIONES</span></h1>
                     <p style="color: #bbbbbb; max-width: 500px; font-size: 1.1rem;">
                         Reuniones online sin interrupciones ni cortes. La estabilidad que tu <span style="color: var(--flash-green); font-weight: bold;">HOME OFFICE</span> necesita para ser productivo.
                     </p>
@@ -2814,7 +2853,7 @@
 
                 <!-- Slide 6: Flashnet Client (Reliable Connection) -->
                 <div class="hero-slide" data-slide="5">
-                    <span class="hero-mono" data-text="[ MAXÍMA_VELOCIDAD ]"></span>
+                    <span class="hero-mono" data-text="[ CONEXIÓN_SEGURA ]"></span>
                     <h1 style="line-height: 1;">¿NECESITAS QUE INTERNET<br><span>NO FALLE?</span></h1>
                     <p style="color: #bbbbbb; max-width: 600px; font-size: 1.1rem;">
                         Comenzá a vivir la mejor experiencia en conectividad con<span style="color: var(--flash-green); font-weight: bold;">FLASHNET</span>
@@ -3816,7 +3855,7 @@
                 }
                 .community-card img { 
                     width: 100%; 
-                    height: 220px; 
+                    height: 240px; 
                     object-fit: cover; 
                     object-position: center;
                 }
